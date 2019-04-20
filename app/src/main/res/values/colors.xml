@@ -3,12 +3,15 @@
     <color name="colorPrimary">#235759</color>
     <color name="colorPrimaryLight">#518486</color>
     <color name="colorPrimaryDark">#002e30</color>
+    <color name="colorAccent">#009688</color>
+    <color name="colorAccentLight">#8ad9b6</color>
     <color name="colorSecondary">#93a8ac</color>
     <color name="colorSecondaryLight">#c4d9de</color>
     <color name="colorSecondaryDark">#65797d</color>
-    <color name="colorSecondaryDarker">#86989B</color>
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorSecondaryText">#000000</color>
-    <color name="colorAccent">#009688</color>
-    <color name="colorAccentLight">#8AD9B6</color>
+    <color name="colorPrimaryTextDarker">#ffC9C7C7</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="white">#FFFFFF</color>
 </resources>
+
