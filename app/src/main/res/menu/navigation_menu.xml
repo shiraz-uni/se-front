@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="گزارشات">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/bank_transactions_report"
+                    android:icon="@drawable/ic_report"
+                    android:title="@string/bank_transactions_report" />
+                <item
+                    android:id="@+id/purchase_reserve_report"
+                    android:icon="@drawable/ic_report"
+                    android:title="@string/purchase_reserve_report" />
+                <item
+                    android:id="@+id/credits_report"
+                    android:icon="@drawable/ic_report"
+                    android:title="@string/credits_report" />
+            </group>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/exit"
+        android:icon="@drawable/ic_switch_user"
+        android:title="@string/exit" />
+
+</menu>
