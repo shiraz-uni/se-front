@@ -1,19 +1,27 @@
 package ir.ac.shirazu.softwareproject;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class LoginActivity extends AppCompatActivity {
 
+    private EditText usernameET, passwordET;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        usernameET = findViewById(R.id.username);
+        passwordET = findViewById(R.id.password);
+    }
 
-
-    public void login(View view){
+    public void login(View view) {
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
@@ -27,21 +35,24 @@ public class LoginActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                       // onLoginSuccess();
+                        // onLoginSuccess();
                         // onLoginFailed();
+                        String username = usernameET.getText().toString();
+                        String password = passwordET.getText().toString();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        if (isVerified(username, password))
+                            startActivity(intent);
+                        else {
+                            Toast.makeText(getApplicationContext(), getString(R.string.not_verified), Toast.LENGTH_SHORT).show();
+                        }
                         progressDialog.dismiss();
                     }
                 }, 3000);
     }
 
-
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    private boolean isVerified(String username, String password) {
+        // ToDo: Implement the Authenticating operation here!
+        return true;
     }
+
 }

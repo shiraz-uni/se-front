@@ -1,5 +1,6 @@
 package ir.ac.shirazu.softwareproject;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.credits_report:
                         break;
                     case R.id.exit:
+                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                         break;
                 }
                 return true;

@@ -27,6 +27,7 @@
         app:cardElevation="15dp">
 
         <EditText
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@android:color/transparent"
@@ -52,6 +53,7 @@
         app:cardElevation="15dp">
 
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@android:color/transparent"
