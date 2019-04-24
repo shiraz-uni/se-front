@@ -10,4 +10,11 @@
     <string name="credits_report">گزارش اعتبار ها</string>
     <string name="exit">خروج</string>
     <string name="not_verified">نام کاربری یا رمز عبور شما اشتباه است!</string>
+    <string name="card_buying">خرید ژتون</string>
+    <string name="breakfast">صبحانه</string>
+    <string name="lunch">ناهار</string>
+    <string name="dinner">شام</string>
+    <string name="unplanned">برنامه ریزی نشده</string>
+    <string name="previous_week">هفته قبل</string>
+    <string name="next_week">هفته بعد</string>
 </resources>

@@ -1,4 +1,4 @@
-package ir.ac.shirazu.softwareproject;
+package ir.ac.shirazu.softwareproject.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import ir.ac.shirazu.softwareproject.R;
 
 
 public class LoginActivity extends AppCompatActivity {
