@@ -1,22 +1,24 @@
-package ir.ac.shirazu.softwareproject;
+package ir.ac.shirazu.softwareproject.activity;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.MenuItem;
+import ir.ac.shirazu.softwareproject.R;
+import ir.ac.shirazu.softwareproject.fragment.ListFragment;
+import ir.ac.shirazu.softwareproject.fragment.WeeklyFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private ImageView creditIncreasingBtn;
+
+    public static boolean isInDormitory() {
+        return isInDormitory;
+    }
+
+    private static boolean isInDormitory = true;
 
 
     private DrawerLayout drawerLayout;
@@ -87,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.credits_report:
                         break;
                     case R.id.exit:
-                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                         break;

@@ -7,7 +7,8 @@
     <color name="colorAccentLight">#8ad9b6</color>
     <color name="colorSecondary">#93a8ac</color>
     <color name="colorSecondaryLight">#c4d9de</color>
-    <color name="colorSecondaryDark">#65797d</color>
+    <color name="colorSecondaryDark">#86989B</color>
+    <color name="colorSecondaryDarker">#65797d</color>
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorSecondaryText">#000000</color>
     <color name="colorPrimaryTextDarker">#ffC9C7C7</color>

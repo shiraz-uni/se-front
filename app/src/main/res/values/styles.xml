@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
     </style>
 
     <style name="CustomTabText" parent="TextAppearance.Design.Tab">
@@ -30,5 +31,16 @@
         <item name="android:textColorPrimary">@color/iron</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
+
+    <style name="ItemWeeklyFragmentTextView">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/colorPrimaryText</item>
+    </style>
+
 
 </resources>

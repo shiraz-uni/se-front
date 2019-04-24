@@ -1,9 +1,11 @@
-package ir.ac.shirazu.softwareproject;
+package ir.ac.shirazu.softwareproject.activity;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import ir.ac.shirazu.softwareproject.R;
 
 public class SplashActivity extends AppCompatActivity {
 
