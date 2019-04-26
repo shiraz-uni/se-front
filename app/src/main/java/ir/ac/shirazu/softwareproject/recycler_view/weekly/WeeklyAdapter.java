@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.ac.shirazu.softwareproject.FoodInformation;
+import ir.ac.shirazu.softwareproject.MeaInformation;
 import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.activity.MainActivity;
 
@@ -56,16 +56,16 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
         lunch = temp[0].concat(" ").concat(temp[1]);
 
         if (MainActivity.isInDormitory()) {
-            FoodInformation foodInformation = itemsInfo.get(index).getBrekfastInformation();
-            setTextAndBackgroundColor(weeklyViewHolder.breakfastTV, weeklyViewHolder.breakfatLayout, foodInformation, breakfast);
-            foodInformation = itemsInfo.get(index).getLunchInformation();
-            setTextAndBackgroundColor(weeklyViewHolder.lunchTV, weeklyViewHolder.lunchLayout, foodInformation, lunch);
-            foodInformation = itemsInfo.get(index).getDinnerInformation();
-            setTextAndBackgroundColor(weeklyViewHolder.dinnerTV, weeklyViewHolder.dinnerLayout, foodInformation, dinner);
+            MeaInformation meaInformation = itemsInfo.get(index).getBrekfastInformation();
+            setTextAndBackgroundColor(weeklyViewHolder.breakfastTV, weeklyViewHolder.breakfatLayout, meaInformation, breakfast);
+            meaInformation = itemsInfo.get(index).getLunchInformation();
+            setTextAndBackgroundColor(weeklyViewHolder.lunchTV, weeklyViewHolder.lunchLayout, meaInformation, lunch);
+            meaInformation = itemsInfo.get(index).getDinnerInformation();
+            setTextAndBackgroundColor(weeklyViewHolder.dinnerTV, weeklyViewHolder.dinnerLayout, meaInformation, dinner);
         } else {
             weeklyViewHolder.breakfatLayout.setVisibility(View.GONE);
             weeklyViewHolder.dinnerLayout.setVisibility(View.GONE);
-            FoodInformation lunchInformation = itemsInfo.get(index).getLunchInformation();
+            MeaInformation lunchInformation = itemsInfo.get(index).getLunchInformation();
             setTextAndBackgroundColor(weeklyViewHolder.lunchTV, weeklyViewHolder.lunchLayout, lunchInformation, lunch);
 
         }
@@ -73,10 +73,10 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
 
     }
 
-    private void setTextAndBackgroundColor(TextView textView, View layout, FoodInformation foodInformation, String text) {
+    private void setTextAndBackgroundColor(TextView textView, View layout, MeaInformation meaInformation, String text) {
         Drawable background = layout.getBackground();
         GradientDrawable drawable = (GradientDrawable) background;
-        switch (foodInformation.getReserveState()) {
+        switch (meaInformation.getReserveState()) {
             case UNPLANNED:
                 textView.setText(mContext.getString(R.string.unplanned));
                 setBackgroundColor(background, R.color.colorSecondaryDarker);
@@ -130,8 +130,8 @@ class WeeklyViewHolder extends RecyclerView.ViewHolder {
         setClickListener(item.getDinnerInformation(), dinnerLayout);
     }
 
-    private void setClickListener(FoodInformation foodInformation, View layoutToClick) {
-        switch (foodInformation.getReserveState()) {
+    private void setClickListener(MeaInformation meaInformation, View layoutToClick) {
+        switch (meaInformation.getReserveState()) {
             case EDITABLE_RESERVED:
                 layoutToClick.setOnClickListener(new View.OnClickListener() {
                     @Override

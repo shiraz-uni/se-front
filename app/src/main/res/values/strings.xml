@@ -17,4 +17,21 @@
     <string name="unplanned">برنامه ریزی نشده</string>
     <string name="previous_week">هفته قبل</string>
     <string name="next_week">هفته بعد</string>
+    <string name="restaurants_prompt">رستوران</string>
+    <string-array name="restaurants">
+        <item>غذا خوری ارم</item>
+        <item> غذاخوري دانشكده مهندسي نفت و گاز</item>
+        <item>غذا خوری دانشکده هنر معماری</item>
+        <item>سالن غذا خوری خوابگاه دست غیب(بیرون بر)</item>
+        <item>غذاخوري دانشكده علوم</item>
+        <item>غذاخوري مرکزی</item>
+        <item> غذاخوري دانشكده کشاورزی</item>
+        <item>غذاخوري دانشكده دامپزشکی</item>
+        <item>غذاخوري دانشكده  خوابگاه دامپزشکی</item>
+        <item>رستوران کوهپایه</item>
+        <item>رستوران لاهیتا</item>
+        <item>رستوران ریحانه</item>
+        <item>رستوران بیرون بر اسمان</item>
+    </string-array>
+
 </resources>

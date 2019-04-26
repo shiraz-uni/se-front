@@ -1,20 +1,20 @@
 package ir.ac.shirazu.softwareproject.recycler_view.weekly;
 
-import ir.ac.shirazu.softwareproject.FoodInformation;
+import ir.ac.shirazu.softwareproject.MeaInformation;
 
 public class WeeklyItem {
     private String day;
     private String date;
-    private FoodInformation brekfastInformation;
-    private FoodInformation lunchInformation;
-    private FoodInformation dinnerInformation;
+    private MeaInformation brekfastInformation;
+    private MeaInformation lunchInformation;
+    private MeaInformation dinnerInformation;
 
 
     public WeeklyItem(String day,
                       String date,
-                      FoodInformation brekfastInformation,
-                      FoodInformation lunchInformation,
-                      FoodInformation dinnerInformation) {
+                      MeaInformation brekfastInformation,
+                      MeaInformation lunchInformation,
+                      MeaInformation dinnerInformation) {
         this.day = day;
         this.date = date;
         this.brekfastInformation = brekfastInformation;
@@ -38,27 +38,27 @@ public class WeeklyItem {
         this.date = date;
     }
 
-    public FoodInformation getBrekfastInformation() {
+    public MeaInformation getBrekfastInformation() {
         return brekfastInformation;
     }
 
-    public void setBrekfastInformation(FoodInformation brekfastInformation) {
+    public void setBrekfastInformation(MeaInformation brekfastInformation) {
         this.brekfastInformation = brekfastInformation;
     }
 
-    public FoodInformation getLunchInformation() {
+    public MeaInformation getLunchInformation() {
         return lunchInformation;
     }
 
-    public void setLunchInformation(FoodInformation lunchInformation) {
+    public void setLunchInformation(MeaInformation lunchInformation) {
         this.lunchInformation = lunchInformation;
     }
 
-    public FoodInformation getDinnerInformation() {
+    public MeaInformation getDinnerInformation() {
         return dinnerInformation;
     }
 
-    public void setDinnerInformation(FoodInformation dinnerInformation) {
+    public void setDinnerInformation(MeaInformation dinnerInformation) {
         this.dinnerInformation = dinnerInformation;
     }
 

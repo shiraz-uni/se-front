@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import ir.ac.shirazu.softwareproject.FoodInformation;
+import ir.ac.shirazu.softwareproject.MeaInformation;
 import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.ReserveState;
 import ir.ac.shirazu.softwareproject.recycler_view.weekly.WeeklyAdapter;
@@ -80,7 +80,7 @@ public class WeeklyFragment extends Fragment {
         return items;
     }
 
-    private FoodInformation getFoodInfo() {
+    private MeaInformation getFoodInfo() {
         Random random = new Random();
         int reservedStateRand = random.nextInt(4);
         ReserveState state = null;
@@ -102,6 +102,6 @@ public class WeeklyFragment extends Fragment {
                 Log.d("MYTESTING", "Random number:" + reservedStateRand);
 
         }
-        return new FoodInformation("چلو کباب", "سلف مهندسی نفت و گاز", state);
+        return new MeaInformation("چلو کباب", "سلف مهندسی نفت و گاز", state);
     }
 }

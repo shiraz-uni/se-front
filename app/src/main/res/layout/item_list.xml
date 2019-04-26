@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="35dp"
+    app:cardElevation="10dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/day_bought"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:padding="50dp"
+            android:layout_weight="1"
+            android:textColor="@color/white">
+        </TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/date_bought"
+            android:text=""
+            android:textSize="20sp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white">
+        </TextView>
+    </LinearLayout>
+    <View
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000">
+        </View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="33dp"
+        android:weightSum="8"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="70dp"
+            android:id="@+id/delete"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_trash"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3.75"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2"
+            android:layout_margin="5dp">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/food_name"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/meal_type"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="#000">
+        </View>
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.2"
+            android:weightSum="2"
+            android:orientation="vertical">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/meal_name"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/meal_price"
+                android:textAlignment="center"/>
+            
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

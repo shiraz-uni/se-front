@@ -1,6 +1,6 @@
 package ir.ac.shirazu.softwareproject;
 
-public class FoodInformation {
+public class MeaInformation {
     private ReserveState reserveState;
     private String reservedFood;
     private String reservedPlace;
@@ -13,7 +13,7 @@ public class FoodInformation {
         this.reserveState = reserveState;
     }
 
-    public FoodInformation(String reservedFood, String reservedPlace, ReserveState reserveState) {
+    public MeaInformation(String reservedFood, String reservedPlace, ReserveState reserveState) {
         this.reserveState = reserveState;
         this.reservedFood = reservedFood;
         this.reservedPlace = reservedPlace;
