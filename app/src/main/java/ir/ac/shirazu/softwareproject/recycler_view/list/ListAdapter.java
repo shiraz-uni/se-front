@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import ir.ac.shirazu.softwareproject.R;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
-
+public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
 
     private List<ListItem> mydata;
@@ -24,37 +24,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         this.mydata = mydata;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView dayBought;
-        public TextView dateBought;
-        public Button delete;
-        public TextView foodName;
-        public TextView mealType;
-        public TextView meal;
-        public TextView price;
-
-
-
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            dateBought = (TextView) itemView.findViewById(R.id.date_bought);
-            dayBought = (TextView) itemView.findViewById(R.id.day_bought);
-            delete =  (Button) itemView.findViewById(R.id.delete);
-            foodName = (TextView) itemView.findViewById(R.id.food_name);
-            mealType = (TextView) itemView.findViewById(R.id.meal_type);
-            meal = (TextView) itemView.findViewById(R.id.meal_name);
-            price=(TextView) itemView.findViewById(R.id.meal_price);
-            delete = (Button) itemView.findViewById(R.id.delete);
-
-
-        }
-    }
-
 
     @NonNull
     @Override
-    public ListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list, viewGroup, false);
 
@@ -72,11 +45,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         myViewHolder.foodName.setText(data.getFood());
         myViewHolder.dateBought.setText(data.getDate());
         myViewHolder.dayBought.setText(data.getDay());
-
-
-
+        myViewHolder.reservedPlace.setText(data.getReservedPlace());
     }
-
 
 
     @Override
@@ -84,4 +54,34 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         return mydata.size();
     }
 
+
 }
+
+class MyViewHolder extends RecyclerView.ViewHolder {
+    TextView dayBought;
+    TextView dateBought;
+    ImageView delete;
+    TextView foodName;
+    TextView mealType;
+    TextView meal;
+    TextView price;
+    TextView reservedPlace;
+
+
+    public MyViewHolder(@NonNull View itemView) {
+        super(itemView);
+        dateBought = itemView.findViewById(R.id.date_bought);
+        dayBought = itemView.findViewById(R.id.day_bought);
+        delete = itemView.findViewById(R.id.delete);
+        foodName = itemView.findViewById(R.id.food_name);
+        mealType = itemView.findViewById(R.id.meal_type);
+        meal = itemView.findViewById(R.id.meal_name);
+        price = itemView.findViewById(R.id.meal_price);
+        reservedPlace = itemView.findViewById(R.id.reserved_place);
+    }
+}
+
+
+
+
+

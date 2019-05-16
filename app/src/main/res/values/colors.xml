@@ -14,5 +14,6 @@
     <color name="colorPrimaryTextDarker">#ffC9C7C7</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
+    <color name="dark_gray_line">#999999</color>
 </resources>
 

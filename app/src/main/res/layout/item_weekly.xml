@@ -8,8 +8,8 @@
     android:layout_marginTop="8dp"
     android:layout_marginRight="6dp"
     android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="#dddddd"
     android:layoutDirection="rtl"
-    app:cardBackgroundColor="@color/colorAccent"
     app:cardCornerRadius="15dp"
     app:cardElevation="8dp">
     <!--ToDo: layoutDirection attribute warning: Check whether the rtl layoutDirection works on API 16 or not!-->
@@ -22,6 +22,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="0.5dp"
+            android:background="@color/colorAccent"
             android:orientation="horizontal"
             android:paddingTop="6dp"
             android:paddingBottom="6dp">
@@ -45,10 +47,6 @@
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorSecondaryDark" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,15 +81,13 @@
                     android:text="@string/card_buying" />
             </LinearLayout>
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorSecondaryDark" />
 
             <LinearLayout
                 android:id="@+id/lunch_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_weekly_lunch"
                 android:clickable="true"
@@ -117,10 +113,6 @@
                     android:text="@string/unplanned" />
             </LinearLayout>
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorSecondaryDark" />
 
             <LinearLayout
                 android:id="@+id/dinner_layout"

@@ -8,14 +8,17 @@ public class ListItem {
     private String meal;
     private String type;
     private String price;
+    private String reservedPlace;
 
-    public ListItem(String day, String date, String food, String meal, String tyoe, String price) {
+    public ListItem(String day, String date, String food, String meal,
+                    String type, String price, String reservedPlace) {
         this.day = day;
         this.date = date;
         this.food = food;
         this.meal = meal;
         this.type = type;
         this.price = price;
+        this.reservedPlace = reservedPlace;
     }
 
     public String getDay() {
@@ -24,6 +27,14 @@ public class ListItem {
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public String getReservedPlace() {
+        return reservedPlace;
+    }
+
+    public void setReservedPlace(String reservedPlace) {
+        this.reservedPlace = reservedPlace;
     }
 
     public String getDate() {
@@ -54,8 +65,8 @@ public class ListItem {
         return type;
     }
 
-    public void setTyoe(String tyoe) {
-        this.type = tyoe;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getPrice() {

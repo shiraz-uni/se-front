@@ -3,72 +3,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragment.ListFragment">
-    
+
     <Spinner
+        android:id="@+id/restaurant_spinner"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:entries="@array/restaurants"
-        android:prompt="@string/restaurants_prompt"
-        android:id="@+id/restaurants_spinner"
-        android:textAlignment="center">
-    </Spinner>
+        android:layout_margin="10dp"
+        android:entries="@array/restaurants"></Spinner>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal"
-        android:weightSum="4">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal">
 
         <Spinner
+            android:id="@+id/date_spinner"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:id="@+id/date_spinner">
-        </Spinner>
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"></Spinner>
 
         <Spinner
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/meal_spinner">
-        </Spinner>
+            android:id="@+id/meal_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:entries="@array/meals"></Spinner>
 
     </LinearLayout>
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/food_select">
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:checked="true"
-            android:id="@+id/first_food"/>
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/second_food"/>
-
-    </RadioGroup>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/roundedbutton"
-        android:elevation="10dp"
-        android:text="خرید ژتون"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="30sp"
-        android:id="@+id/buy_meal"
-        />
-
-    <view class="android.support.v7.app.AlertController$RecycleListView"
+    <LinearLayout
+        android:id="@+id/meal_information_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <RadioGroup
+            android:id="@+id/food_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layoutDirection="rtl">
+
+            <RadioButton
+                android:id="@+id/first_food"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:defaultFocusHighlightEnabled="true"
+                android:text="پلو مرغ با ماست"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/second_food"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="خوراک مرغ + سوپ جو"
+                android:textSize="18sp" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buy_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/roundedbutton"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="خرید ژتون"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="22sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/bought_recycle"
-        android:scrollbars="vertical">
-    </view>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" />
 
 </LinearLayout>

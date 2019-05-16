@@ -1,115 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="35dp"
-    app:cardElevation="10dp"
-    app:cardBackgroundColor="@color/colorPrimary"
-    android:orientation="vertical"
-    android:layout_margin="10dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/day_bought"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:padding="50dp"
-            android:layout_weight="1"
-            android:textColor="@color/white">
-        </TextView>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:id="@+id/date_bought"
-            android:text=""
-            android:textSize="20sp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/white">
-        </TextView>
-    </LinearLayout>
-    <View
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#000">
-        </View>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="6dp"
+    android:layout_marginBottom="8dp"
+    android:layoutDirection="rtl"
+    app:cardBackgroundColor="#dddddd"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="8dp">
+    <!--ToDo: layoutDirection attribute warning: Check whether the rtl layoutDirection works on API 16 or not!-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="33dp"
-        android:weightSum="8"
-        >
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="70dp"
-            android:id="@+id/delete"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_trash"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="3.75"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="2"
-            android:layout_margin="5dp">
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/food_name"
-                android:textAlignment="center"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.5dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:id="@+id/day_bought"
+                style="@style/ItemWeeklyFragmentTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="دوشنبه"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/date_bought"
+                style="@style/ItemWeeklyFragmentTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="1398/01/02"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/breakfast_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/meal_type"
-                android:textAlignment="center"/>
+                android:background="@color/colorAccent"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/meal_name"
+                    style="@style/ItemWeeklyFragmentTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="ناهار" />
+
+                <TextView
+                    android:id="@+id/meal_price"
+                    style="@style/ItemWeeklyFragmentTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:text="3700" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/lunch_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="2"
+                android:background="@color/colorAccent"
+                android:clickable="true"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/food_name"
+                    style="@style/ItemWeeklyFragmentTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/meal_type"
+                    android:text="چلو کباب با دلستر" />
+
+                <TextView
+                    android:id="@+id/meal_type"
+                    style="@style/ItemWeeklyFragmentTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:text="ژتون عادی" />
+
+                <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="55dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_trash" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 
-        <View
-            android:layout_width="4dp"
-            android:layout_height="match_parent"
-            android:background="#000">
-        </View>
-        
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2.2"
-            android:weightSum="2"
-            android:orientation="vertical">
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/meal_name"
-                android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/reserved_place"
+            style="@style/ItemWeeklyFragmentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="@drawable/bg_list_bottom_rounded"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/meal_price"
-                android:textAlignment="center"/>
-            
-        </LinearLayout>
-
+            android:text="غذاخوری دانشکده نفت و گاز" />
 
 
     </LinearLayout>
