@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.EditDialogFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/meal_name"
+            style="@style/EditDialogFragmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="ناهار"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/dayOfWeek"
+            style="@style/EditDialogFragmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="شنبه" />
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/EditDialogFragmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="1398/1/29" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl">
+
+        <Spinner
+            android:id="@+id/resturant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"></Spinner>
+
+        <RadioGroup
+            android:id="@+id/food_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resturant"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/first_food"
+                style="@style/EditDialogRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="پلو خورشت قیمه با ماست 3700" />
+
+            <RadioButton
+                android:id="@+id/second_food"
+                style="@style/EditDialogRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="چلو کباب با گرجه و دلستر 4200" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/submit_buttons_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_radio_group"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <Button
+                android:id="@+id/cancel"
+                style="@style/EditDialogFragmentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbutton_gray"
+                android:text="لغو"
+                android:textColor="@color/colorSecondaryText" />
+
+            <Button
+                android:id="@+id/ok"
+                style="@style/EditDialogFragmentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/cancel"
+                android:layout_marginRight="27dp"
+                android:background="@drawable/roundedbutton"
+                android:text="تایید" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/seen_button"
+            style="@style/EditDialogFragmentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_radio_group"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/roundedbutton"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="مشاهده شد"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_radio_group"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_trash_for_dialog"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+
+</LinearLayout>

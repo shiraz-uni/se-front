@@ -32,7 +32,34 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
-    <style name="ItemWeeklyFragmentTextView">
+    <style name="ItemWeeklyFragmentTextViewMeal">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ItemWeeklyFragmentTextViewFood" parent="ItemWeeklyFragmentTextViewMeal">
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="ItemWeeklyFragmentTextViewDayAndDate" parent="ItemWeeklyFragmentTextViewMeal">
+
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="EditDialogFragmentTextView">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="EditDialogFragmentButton">
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
@@ -40,6 +67,10 @@
 
     <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="EditDialogRadioButton">
+        <item name="android:textSize">16sp</item>
     </style>
 
 

@@ -1,65 +1,43 @@
 package ir.ac.shirazu.softwareproject.recycler_view.weekly;
 
-import ir.ac.shirazu.softwareproject.FoodInformation;
+import ir.ac.shirazu.softwareproject.MealInfo;
 
 public class WeeklyItem {
-    private String day;
-    private String date;
-    private FoodInformation brekfastInformation;
-    private FoodInformation lunchInformation;
-    private FoodInformation dinnerInformation;
+    private MealInfo breakfastInfo;
+    private MealInfo lunchInfo;
+    private MealInfo dinnerInfo;
 
 
-    public WeeklyItem(String day,
-                      String date,
-                      FoodInformation brekfastInformation,
-                      FoodInformation lunchInformation,
-                      FoodInformation dinnerInformation) {
-        this.day = day;
-        this.date = date;
-        this.brekfastInformation = brekfastInformation;
-        this.lunchInformation = lunchInformation;
-        this.dinnerInformation = dinnerInformation;
+    public WeeklyItem(MealInfo breakfastInfo,
+                      MealInfo lunchInfo,
+                      MealInfo dinnerInfo) {
+        this.breakfastInfo = breakfastInfo;
+        this.lunchInfo = lunchInfo;
+        this.dinnerInfo = dinnerInfo;
     }
 
-    public String getDay() {
-        return day;
+    public MealInfo getBreakfastInfo() {
+        return breakfastInfo;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setBreakfastInfo(MealInfo breakfastInfo) {
+        this.breakfastInfo = breakfastInfo;
     }
 
-    public String getDate() {
-        return date;
+    public MealInfo getLunchInfo() {
+        return lunchInfo;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setLunchInfo(MealInfo lunchInfo) {
+        this.lunchInfo = lunchInfo;
     }
 
-    public FoodInformation getBrekfastInformation() {
-        return brekfastInformation;
+    public MealInfo getDinnerInfo() {
+        return dinnerInfo;
     }
 
-    public void setBrekfastInformation(FoodInformation brekfastInformation) {
-        this.brekfastInformation = brekfastInformation;
-    }
-
-    public FoodInformation getLunchInformation() {
-        return lunchInformation;
-    }
-
-    public void setLunchInformation(FoodInformation lunchInformation) {
-        this.lunchInformation = lunchInformation;
-    }
-
-    public FoodInformation getDinnerInformation() {
-        return dinnerInformation;
-    }
-
-    public void setDinnerInformation(FoodInformation dinnerInformation) {
-        this.dinnerInformation = dinnerInformation;
+    public void setDinnerInfo(MealInfo dinnerInfo) {
+        this.dinnerInfo = dinnerInfo;
     }
 
 }

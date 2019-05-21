@@ -9,7 +9,7 @@
     android:layout_marginRight="6dp"
     android:layout_marginBottom="8dp"
     android:layoutDirection="rtl"
-    app:cardBackgroundColor="@color/colorAccent"
+    app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="15dp"
     app:cardElevation="8dp">
     <!--ToDo: layoutDirection attribute warning: Check whether the rtl layoutDirection works on API 16 or not!-->
@@ -20,6 +20,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:background="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -27,8 +28,9 @@
             android:paddingBottom="6dp">
 
             <TextView
+
                 android:id="@+id/day_name"
-                style="@style/ItemWeeklyFragmentTextView"
+                style="@style/ItemWeeklyFragmentTextViewDayAndDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -37,7 +39,7 @@
 
             <TextView
                 android:id="@+id/date"
-                style="@style/ItemWeeklyFragmentTextView"
+                style="@style/ItemWeeklyFragmentTextViewDayAndDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -67,19 +69,17 @@
                 android:paddingBottom="10dp">
 
                 <TextView
-                    style="@style/ItemWeeklyFragmentTextView"
+                    android:layout_marginRight="10dp"
+                    style="@style/ItemWeeklyFragmentTextViewMeal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="@string/breakfast" />
 
                 <TextView
                     android:id="@+id/breakfast_text"
-                    style="@style/ItemWeeklyFragmentTextView"
+                    style="@style/ItemWeeklyFragmentTextViewFood"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
                     android:text="@string/card_buying" />
             </LinearLayout>
 
@@ -100,21 +100,19 @@
                 android:paddingBottom="10dp">
 
                 <TextView
-                    style="@style/ItemWeeklyFragmentTextView"
+                    android:layout_marginRight="10dp"
+                    style="@style/ItemWeeklyFragmentTextViewMeal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="@string/lunch" />
 
                 <TextView
                     android:id="@+id/lunch_text"
-                    style="@style/ItemWeeklyFragmentTextView"
+                    style="@style/ItemWeeklyFragmentTextViewFood"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
                     android:gravity="center"
-                    android:text="@string/unplanned" />
+                    android:text="چلو کباب با دلستر و ژله و ماهی و زیتون و همه چی " />
             </LinearLayout>
 
             <View
@@ -134,19 +132,17 @@
                 android:paddingBottom="10dp">
 
                 <TextView
-                    style="@style/ItemWeeklyFragmentTextView"
+                    android:layout_marginRight="10dp"
+                    style="@style/ItemWeeklyFragmentTextViewMeal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="@string/dinner" />
 
                 <TextView
                     android:id="@+id/dinner_text"
-                    style="@style/ItemWeeklyFragmentTextView"
+                    style="@style/ItemWeeklyFragmentTextViewFood"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
                     android:text=" چلو کباب"
                     tools:ignore="HardcodedText" />
             </LinearLayout>

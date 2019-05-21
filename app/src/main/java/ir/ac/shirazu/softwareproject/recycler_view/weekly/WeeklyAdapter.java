@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +15,21 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.ac.shirazu.softwareproject.FoodInformation;
+import ir.ac.shirazu.softwareproject.MealInfo;
 import ir.ac.shirazu.softwareproject.R;
+import ir.ac.shirazu.softwareproject.ReserveState;
 import ir.ac.shirazu.softwareproject.activity.MainActivity;
+import ir.ac.shirazu.softwareproject.fragment.EditDialogFragment;
 
 public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
     private final Context mContext;
     private ArrayList<WeeklyItem> itemsInfo;
+    private FragmentManager mFragmentManager;
 
-    public WeeklyAdapter(List<WeeklyItem> weeklyItems, Context context) {
+    public WeeklyAdapter(List<WeeklyItem> weeklyItems, Context context, FragmentManager fragmentManager) {
         itemsInfo = (ArrayList<WeeklyItem>) weeklyItems;
         this.mContext = context;
+        mFragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -38,57 +42,82 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull WeeklyViewHolder weeklyViewHolder, int i) {
-        weeklyViewHolder.dayTV.setText(itemsInfo.get(i).getDay());
-        weeklyViewHolder.dateTV.setText(itemsInfo.get(i).getDate());
-        setEachMeal(weeklyViewHolder, itemsInfo.get(i).getBrekfastInformation().getReservedFood(),
-                itemsInfo.get(i).getLunchInformation().getReservedFood(),
-                itemsInfo.get(i).getDinnerInformation().getReservedFood(),
-                i);
-        weeklyViewHolder.onBind(itemsInfo, i);
+        weeklyViewHolder.dayTV.setText(itemsInfo.get(i).getBreakfastInfo().getDayOfWeek());
+        weeklyViewHolder.dateTV.setText(itemsInfo.get(i).getBreakfastInfo().getDate());
+
+
+        // ToDo: pass the reserved food information here.
+        setEachMeal(weeklyViewHolder, i);
+        WeeklyItem item = itemsInfo.get(i);
+        setClickListener(item.getBreakfastInfo(), weeklyViewHolder.breakfastLayout);
+        setClickListener(item.getLunchInfo(), weeklyViewHolder.lunchLayout);
+        setClickListener(item.getDinnerInfo(), weeklyViewHolder.dinnerLayout);
+
+
     }
 
-    private void setEachMeal(WeeklyViewHolder weeklyViewHolder, String breakfast, String lunch, String dinner, int index) {
-        String[] temp = breakfast.split(" ");
-        breakfast = temp[0].concat(" ").concat(temp[1]);
-        temp = dinner.split(" ");
-        dinner = temp[0].concat(" ").concat(temp[1]);
-        temp = lunch.split(" ");
-        lunch = temp[0].concat(" ").concat(temp[1]);
+    private void setClickListener(final MealInfo mealInfo, View layoutToClick) {
+        if (mealInfo.getReserveState() == ReserveState.UNPLANNED) {
+            layoutToClick.setClickable(false);
+        } else {
+            layoutToClick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EditDialogFragment dialogFragment =
+                            EditDialogFragment.newInstance(mealInfo);
+                    dialogFragment.show(mFragmentManager, null);
+                }
+            });
+        }
+
+    }
+
+    private void setEachMeal(WeeklyViewHolder weeklyViewHolder, int index) {
+//        String[] temp = breakfast.split(" ");
+//        breakfast = temp[0].concat(" ").concat(temp[1]);
+//        temp = dinner.split(" ");
+//        dinner = temp[0].concat(" ").concat(temp[1]);
+//        temp = lunch.split(" ");
+//        lunch = temp[0].concat(" ").concat(temp[1]);
 
         if (MainActivity.isInDormitory()) {
-            FoodInformation foodInformation = itemsInfo.get(index).getBrekfastInformation();
-            setTextAndBackgroundColor(weeklyViewHolder.breakfastTV, weeklyViewHolder.breakfatLayout, foodInformation, breakfast);
-            foodInformation = itemsInfo.get(index).getLunchInformation();
-            setTextAndBackgroundColor(weeklyViewHolder.lunchTV, weeklyViewHolder.lunchLayout, foodInformation, lunch);
-            foodInformation = itemsInfo.get(index).getDinnerInformation();
-            setTextAndBackgroundColor(weeklyViewHolder.dinnerTV, weeklyViewHolder.dinnerLayout, foodInformation, dinner);
+            MealInfo mealInfo = itemsInfo.get(index).getBreakfastInfo();
+            setTextAndBackgroundColor(weeklyViewHolder.breakfastTV, weeklyViewHolder.breakfastLayout, mealInfo);
+            mealInfo = itemsInfo.get(index).getLunchInfo();
+            setTextAndBackgroundColor(weeklyViewHolder.lunchTV, weeklyViewHolder.lunchLayout, mealInfo);
+            mealInfo = itemsInfo.get(index).getDinnerInfo();
+            setTextAndBackgroundColor(weeklyViewHolder.dinnerTV, weeklyViewHolder.dinnerLayout, mealInfo);
         } else {
-            weeklyViewHolder.breakfatLayout.setVisibility(View.GONE);
+            weeklyViewHolder.breakfastLayout.setVisibility(View.GONE);
             weeklyViewHolder.dinnerLayout.setVisibility(View.GONE);
-            FoodInformation lunchInformation = itemsInfo.get(index).getLunchInformation();
-            setTextAndBackgroundColor(weeklyViewHolder.lunchTV, weeklyViewHolder.lunchLayout, lunchInformation, lunch);
+            MealInfo lunchInformation = itemsInfo.get(index).getLunchInfo();
+            setTextAndBackgroundColor(weeklyViewHolder.lunchTV, weeklyViewHolder.lunchLayout, lunchInformation);
 
         }
 
 
     }
 
-    private void setTextAndBackgroundColor(TextView textView, View layout, FoodInformation foodInformation, String text) {
+    private void setTextAndBackgroundColor(TextView textView, View layout, MealInfo
+            mealInfo) {
         Drawable background = layout.getBackground();
         GradientDrawable drawable = (GradientDrawable) background;
-        switch (foodInformation.getReserveState()) {
+        switch (mealInfo.getReserveState()) {
             case UNPLANNED:
                 textView.setText(mContext.getString(R.string.unplanned));
                 setBackgroundColor(background, R.color.colorSecondaryDarker);
+                break;
+            case NON_EDITABLE_RESERVED:
+            case EDITABLE_RESERVED:
+                String foodName = mealInfo.getReservedFoodInfo().getFoodName();
+                textView.setText(foodName);
+                setBackgroundColor(background, R.color.colorAccent);
                 break;
             case NOT_RESERVED:
                 textView.setText(mContext.getString(R.string.card_buying));
                 setBackgroundColor(background, R.color.colorAccentLight);
                 break;
             default:
-                // case EDITABLE_RESERVED and NON_EDITABLE_RESERVED
-                textView.setText(text);
-                setBackgroundColor(background, R.color.colorAccent);
                 break;
         }
     }
@@ -109,7 +138,7 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
 
 class WeeklyViewHolder extends RecyclerView.ViewHolder {
     TextView dayTV, dateTV, breakfastTV, lunchTV, dinnerTV;
-    View breakfatLayout, lunchLayout, dinnerLayout;
+    View breakfastLayout, lunchLayout, dinnerLayout;
 
     WeeklyViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -118,53 +147,8 @@ class WeeklyViewHolder extends RecyclerView.ViewHolder {
         breakfastTV = itemView.findViewById(R.id.breakfast_text);
         lunchTV = itemView.findViewById(R.id.lunch_text);
         dinnerTV = itemView.findViewById(R.id.dinner_text);
-        breakfatLayout = itemView.findViewById(R.id.breakfast_layout);
+        breakfastLayout = itemView.findViewById(R.id.breakfast_layout);
         lunchLayout = itemView.findViewById(R.id.lunch_layout);
         dinnerLayout = itemView.findViewById(R.id.dinner_layout);
-    }
-
-    void onBind(ArrayList<WeeklyItem> itemsInfo, int i) {
-        WeeklyItem item = itemsInfo.get(i);
-        setClickListener(item.getBrekfastInformation(), breakfatLayout);
-        setClickListener(item.getLunchInformation(), lunchLayout);
-        setClickListener(item.getDinnerInformation(), dinnerLayout);
-    }
-
-    private void setClickListener(FoodInformation foodInformation, View layoutToClick) {
-        switch (foodInformation.getReserveState()) {
-            case EDITABLE_RESERVED:
-                layoutToClick.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("MyLogTest", "Show the food edit dialog");
-                    }
-                });
-                break;
-            case NON_EDITABLE_RESERVED:
-                layoutToClick.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("MyLogTest", "Show the food information");
-                    }
-                });
-                break;
-            case UNPLANNED:
-//                layoutToClick.setClickable(false);
-                layoutToClick.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("MyLogTest", "setClickable(false)");
-                    }
-                });
-                break;
-            case NOT_RESERVED:
-                layoutToClick.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("MyLogTest", "Show the food edit dialog");
-                    }
-                });
-                break;
-        }
     }
 }

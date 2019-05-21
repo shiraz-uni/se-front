@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import ir.ac.shirazu.softwareproject.FoodInformation;
+import ir.ac.shirazu.softwareproject.FoodInfo;
+import ir.ac.shirazu.softwareproject.MealInfo;
+import ir.ac.shirazu.softwareproject.MealType;
 import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.ReserveState;
+import ir.ac.shirazu.softwareproject.Self;
 import ir.ac.shirazu.softwareproject.recycler_view.weekly.WeeklyAdapter;
 import ir.ac.shirazu.softwareproject.recycler_view.weekly.WeeklyItem;
 
@@ -44,6 +46,7 @@ public class WeeklyFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootViwe = inflater
                 .inflate(R.layout.fragment_weekly, container, false);
+
         previousWeekBtn = rootViwe.findViewById(R.id.previous_week_btn);
         nextWeekBtn = rootViwe.findViewById(R.id.next_week_btn);
         previousWeekBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +64,7 @@ public class WeeklyFragment extends Fragment {
 
         RecyclerView mRecyclerView = rootViwe.findViewById(R.id.weekly_recycler_view);
         List<WeeklyItem> items = generateRandomData();
-        WeeklyAdapter adapter = new WeeklyAdapter(items, getContext());
+        WeeklyAdapter adapter = new WeeklyAdapter(items, getContext(), getFragmentManager());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         return rootViwe;
@@ -71,37 +74,44 @@ public class WeeklyFragment extends Fragment {
     private ArrayList<WeeklyItem> generateRandomData() {
         ArrayList<WeeklyItem> items = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            items.add(new WeeklyItem("شنبه", "1398/02/02",
-                    getFoodInfo(),
-                    getFoodInfo(),
-                    getFoodInfo()
+            items.add(new WeeklyItem(getFoodInfo(MealType.BREAKFAST),
+                    getFoodInfo(MealType.LUNCH),
+                    getFoodInfo(MealType.DINNER)
             ));
         }
         return items;
     }
 
-    private FoodInformation getFoodInfo() {
+    private MealInfo getFoodInfo(MealType mealType) {
         Random random = new Random();
         int reservedStateRand = random.nextInt(4);
-        ReserveState state = null;
+        ReserveState state;
+        MealInfo mealInfo = null;
+        FoodInfo firstFood = new FoodInfo("غذای اول، چلو کباب با دلستر و ژله برای تست", 3700, 5814),
+                secondFood = new FoodInfo("غذای دوم، پلو مرغ با ماست برای تست", 4200, 4352);
         switch (reservedStateRand) {
             case 0:
                 state = ReserveState.EDITABLE_RESERVED;
-                Log.d("MYTESTING", "Random number:" + reservedStateRand);
+                mealInfo = new MealInfo("1398/02/25",mealType, state, firstFood,
+                        secondFood, firstFood.getFoodId(), new Self(5412, "سلف مهندسی نفت و گاز"));
                 break;
             case 1:
                 state = ReserveState.NON_EDITABLE_RESERVED;
-                Log.d("MYTESTING", "Random number:" + reservedStateRand);
+                mealInfo = new MealInfo("1398/02/25",mealType, state, firstFood,
+                        secondFood, firstFood.getFoodId(), new Self(3251, "سلف مهندسی نفت و گاز"));
                 break;
             case 2:
                 state = ReserveState.UNPLANNED;
-                Log.d("MYTESTING", "Random number:" + reservedStateRand);
+                mealInfo = new MealInfo("1398/02/25",mealType, state);
                 break;
             case 3:
                 state = ReserveState.NOT_RESERVED;
-                Log.d("MYTESTING", "Random number:" + reservedStateRand);
+                mealInfo = new MealInfo("1398/02/25",mealType, state, firstFood,
+                        secondFood);
+
 
         }
-        return new FoodInformation("چلو کباب", "سلف مهندسی نفت و گاز", state);
+
+        return mealInfo;
     }
 }
