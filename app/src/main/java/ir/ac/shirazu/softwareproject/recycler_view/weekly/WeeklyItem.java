@@ -1,5 +1,6 @@
 package ir.ac.shirazu.softwareproject.recycler_view.weekly;
 
+
 import ir.ac.shirazu.softwareproject.MealInfo;
 
 public class WeeklyItem {
@@ -31,6 +32,7 @@ public class WeeklyItem {
     public void setLunchInfo(MealInfo lunchInfo) {
         this.lunchInfo = lunchInfo;
     }
+
 
     public MealInfo getDinnerInfo() {
         return dinnerInfo;

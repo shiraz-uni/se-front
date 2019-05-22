@@ -2,16 +2,17 @@ package ir.ac.shirazu.softwareproject;
 
 import java.io.Serializable;
 
-public class MealInfo extends Date implements Serializable {
+public class MealInfo implements Serializable {
+    private Date date;
     private MealType mealType;
     private ReserveState reserveState;
     private FoodInfo firstFood, secondFood;
     private int reservedFoodId;
     private Self reservedSelf;
 
-    public MealInfo(String date, MealType mealType, ReserveState reserveState, FoodInfo firstFood,
+    public MealInfo(Date date, MealType mealType, ReserveState reserveState, FoodInfo firstFood,
                     FoodInfo secondFood, int reservedFoodId, Self reservedSelf) {
-        super(date);
+        this.date = date;
         this.mealType = mealType;
         this.reserveState = reserveState;
         if (reserveState == ReserveState.UNPLANNED) {
@@ -33,7 +34,7 @@ public class MealInfo extends Date implements Serializable {
      * <p>
      * reservedSelf : null
      */
-    public MealInfo(String date, MealType mealType, ReserveState reserveState, FoodInfo firstFood, FoodInfo secondFood) {
+    public MealInfo(Date date, MealType mealType, ReserveState reserveState, FoodInfo firstFood, FoodInfo secondFood) {
         this(date, mealType, reserveState, firstFood,
                 secondFood, -1, null);
     }
@@ -46,9 +47,17 @@ public class MealInfo extends Date implements Serializable {
      * <p>
      * reservedSelf : firstFood : secondFood : null
      */
-    public MealInfo(String date, MealType mealType, ReserveState reserveState) {
+    public MealInfo(Date date, MealType mealType, ReserveState reserveState) {
         this(date, mealType, reserveState, null,
                 null);
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public boolean isReserved() {
@@ -115,4 +124,5 @@ public class MealInfo extends Date implements Serializable {
     public void setReservedSelf(Self reservedSelf) {
         this.reservedSelf = reservedSelf;
     }
+
 }

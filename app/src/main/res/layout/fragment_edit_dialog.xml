@@ -62,6 +62,7 @@
             android:orientation="vertical">
 
             <RadioButton
+                android:textColor="@color/radio_button_text_color"
                 android:id="@+id/first_food"
                 style="@style/EditDialogRadioButton"
                 android:layout_width="wrap_content"
@@ -69,6 +70,7 @@
                 android:text="پلو خورشت قیمه با ماست 3700" />
 
             <RadioButton
+                android:textColor="@color/radio_button_text_color"
                 android:id="@+id/second_food"
                 style="@style/EditDialogRadioButton"
                 android:layout_width="wrap_content"
@@ -115,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/food_radio_group"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/roundedbutton"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -128,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/food_radio_group"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:padding="6dp"
             android:src="@drawable/ic_trash_for_dialog"
