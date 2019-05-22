@@ -57,6 +57,7 @@ public class EditDialogFragment extends DialogFragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,7 @@ public class EditDialogFragment extends DialogFragment {
             mDialogFragmentCallBack = (WeeklyAdapter.DialogFragmentCallBack) args.getSerializable(ARG_STATE_CHANGED_LISTENER);
             clickedItemRow = args.getInt(ARG_CLICKED_ITEM_ROW);
         }
+
         mUtility = Utility.getInstance(getContext().getApplicationContext());
     }
 
@@ -103,22 +105,21 @@ public class EditDialogFragment extends DialogFragment {
         secondFoodRadioButton.setText(food.getFoodName() + "  " + food.getFoodPrice());
         ReserveState state = mMealInfo.getReserveState();
 
-//        switch (state) {
-//            case NOT_RESERVED:
-//                logicOfNotReservedState();
-//
-//                break;
-//
-//            case EDITABLE_RESERVED:
-//                logicOfEditableReservedState();
-//
-//                break;
-//            case NON_EDITABLE_RESERVED:
-//                logicOfNonEditableReservedState();
-//
-//
-//                break;
-//        }
+        switch (state) {
+            case NOT_RESERVED:
+                logicOfNotReservedState();
+                break;
+
+            case EDITABLE_RESERVED:
+                logicOfEditableReservedState();
+
+                break;
+            case NON_EDITABLE_RESERVED:
+                logicOfNonEditableReservedState();
+
+
+                break;
+        }
         setLogic(state);
 
         return rootView;
@@ -145,13 +146,24 @@ public class EditDialogFragment extends DialogFragment {
 
     private void setOnClickListeners() {
 
+        if (mMealInfo.getReserveState() != ReserveState.NON_EDITABLE_RESERVED) {
 
-        restaurantSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED) {
+            restaurantSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    int nowReservedFoodId = foodRadioGroup.getCheckedRadioButtonId()
+                            == firstFoodRadioButton.getId() ? mMealInfo.getReservedFoodId()
+                            : mMealInfo.getSecondFood().getFoodId();
+
+                    boolean isReservedFoodChanged = false;
+                    if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED)
+                        isReservedFoodChanged = nowReservedFoodId != mMealInfo.getReservedFoodId();
+
                     if (position != 0)
-                        if (mUtility.getSelf(position).getSelfId() != mMealInfo.getReservedSelf().getSelfId()) {
+                        if (mUtility.getSelf(position).getSelfId() != mMealInfo.getReservedSelf().getSelfId()
+                                || isReservedFoodChanged) {
+
+
                             deleteButton.setVisibility(View.INVISIBLE);
                             submitButtonsContainer.setVisibility(View.VISIBLE);
                         } else {
@@ -159,20 +171,31 @@ public class EditDialogFragment extends DialogFragment {
                             deleteButton.setVisibility(View.VISIBLE);
 
                         }
+                    else {
+                        restaurantSpinner.setSelection(mMealInfo.getReservedSelf().getSelfId());
+                    }
                 }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+        }
 
         firstFoodRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int position = restaurantSpinner.getSelectedItemPosition();
+                boolean isReservedSelfChanged = mUtility.getSelf(position).getSelfId()
+                        != mMealInfo.getReservedSelf().getSelfId();
                 if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED)
-                    if (mMealInfo.getReservedFoodId() == mMealInfo.getSecondFood().getFoodId()) {
+
+                    if (mMealInfo.getReservedFoodId() == mMealInfo.getSecondFood().getFoodId()
+                            || isReservedSelfChanged) {
                         deleteButton.setVisibility(View.INVISIBLE);
                         submitButtonsContainer.setVisibility(View.VISIBLE);
                     } else {
@@ -187,8 +210,15 @@ public class EditDialogFragment extends DialogFragment {
         secondFoodRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED) {
+                }
+                int position = restaurantSpinner.getSelectedItemPosition();
+                boolean isReservedSelfChanged = mUtility.getSelf(position).getSelfId()
+                        != mMealInfo.getReservedSelf().getSelfId();
+
                 if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED)
-                    if (mMealInfo.getReservedFoodId() == mMealInfo.getFirstFood().getFoodId()) {
+                    if (mMealInfo.getReservedFoodId() == mMealInfo.getFirstFood().getFoodId()
+                            || isReservedSelfChanged) {
                         deleteButton.setVisibility(View.INVISIBLE);
                         submitButtonsContainer.setVisibility(View.VISIBLE);
                     } else {
@@ -285,7 +315,7 @@ public class EditDialogFragment extends DialogFragment {
         switch (state) {
             case NON_EDITABLE_RESERVED:
                 setReservedData();
-                restaurantSpinner.setClickable(false);
+                restaurantSpinner.setEnabled(false);
                 if (mMealInfo.getReservedFoodId() == mMealInfo.getFirstFood().getFoodId()) {
                     firstFoodRadioButton.setClickable(false);
                     secondFoodRadioButton.setEnabled(false);

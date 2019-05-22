@@ -50,7 +50,7 @@
             android:id="@+id/resturant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"></Spinner>
+            android:layout_centerHorizontal="true" />
 
         <RadioGroup
             android:id="@+id/food_radio_group"

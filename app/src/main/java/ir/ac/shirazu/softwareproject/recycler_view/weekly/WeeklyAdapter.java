@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -93,12 +94,39 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
                             setTextAndBackgroundColor(textView, layoutToClick, changedMealInfo);
                         }
                     };
-                    EditDialogFragment dialogFragment =
-                            EditDialogFragment.newInstance(mealInfo, index, s);
-                    dialogFragment.show(mFragmentManager, null);
+                    if (mealInfo.getReserveState() != ReserveState.NON_EDITABLE_RESERVED) {
+                        validateTheStateOfMealInfo(mealInfo);
+                    }
+                    if (mealInfo.getReserveState() != ReserveState.UNPLANNED) {
+                        EditDialogFragment dialogFragment =
+                                EditDialogFragment.newInstance(mealInfo, index, s);
+                        dialogFragment.show(mFragmentManager, null);
+                    } else {
+                        notifyDataSetChanged();
+                        Toast.makeText(mContext.getApplicationContext(), "مهلت رزرو تمام شد", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                 }
             });
         }
+
+    }
+
+    private void validateTheStateOfMealInfo(MealInfo mealInfo) {
+        // ToDo: Check if it's necessary to change the reserve state of mealInfo
+        ReserveState state = mealInfo.getReserveState();
+
+//        if (state == ReserveState.EDITABLE_RESERVED) {
+//            if (remainingTime(mealInfo.getDate()) > someThing){
+//                state = ReserveState.NON_EDITABLE_RESERVED;
+//            }
+//        } else if (state == ReserveState.NOT_RESERVED) {
+//            if (remainingTime(mealInfo.getDate()) > someThing)
+//                state = ReserveState.UNPLANNED;
+//        }
+        mealInfo.setReserveState(state);
+
 
     }
 
