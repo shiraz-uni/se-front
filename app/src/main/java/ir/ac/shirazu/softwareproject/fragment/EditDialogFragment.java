@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -156,10 +157,14 @@ public class EditDialogFragment extends DialogFragment {
                             : mMealInfo.getSecondFood().getFoodId();
 
                     boolean isReservedFoodChanged = false;
-                    if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED)
+                    if (mMealInfo.getReserveState() == ReserveState.NOT_RESERVED
+                            && restaurantSpinner.getSelectedItemPosition() != 0) {
+                        return;
+                    } else {
                         isReservedFoodChanged = nowReservedFoodId != mMealInfo.getReservedFoodId();
+                    }
 
-                    if (position != 0)
+                    if (position != 0) {
                         if (mUtility.getSelf(position).getSelfId() != mMealInfo.getReservedSelf().getSelfId()
                                 || isReservedFoodChanged) {
 
@@ -171,8 +176,10 @@ public class EditDialogFragment extends DialogFragment {
                             deleteButton.setVisibility(View.VISIBLE);
 
                         }
-                    else {
-                        restaurantSpinner.setSelection(mMealInfo.getReservedSelf().getSelfId());
+                    } else {
+                        if (mMealInfo.getReservedSelf() != null) {
+                            restaurantSpinner.setSelection(mMealInfo.getReservedSelf().getSelfId());
+                        }
                     }
                 }
 
@@ -188,7 +195,9 @@ public class EditDialogFragment extends DialogFragment {
         firstFoodRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (mMealInfo.getReserveState() == ReserveState.NOT_RESERVED) {
+                    return;
+                }
                 int position = restaurantSpinner.getSelectedItemPosition();
                 boolean isReservedSelfChanged = mUtility.getSelf(position).getSelfId()
                         != mMealInfo.getReservedSelf().getSelfId();
@@ -210,7 +219,8 @@ public class EditDialogFragment extends DialogFragment {
         secondFoodRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED) {
+                if (mMealInfo.getReserveState() == ReserveState.NOT_RESERVED) {
+                    return;
                 }
                 int position = restaurantSpinner.getSelectedItemPosition();
                 boolean isReservedSelfChanged = mUtility.getSelf(position).getSelfId()
@@ -251,6 +261,15 @@ public class EditDialogFragment extends DialogFragment {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (restaurantSpinner.getSelectedItemPosition() == 0) {
+                    restaurantSpinner.performClick();
+                    return;
+                } else if (foodRadioGroup.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(getContext().getApplicationContext(), "ابتدا یکی از خوراکی ها را انتخاب کنید"
+                            , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 switch (mMealInfo.getReserveState()) {
                     case EDITABLE_RESERVED:
                         // Modify operation
