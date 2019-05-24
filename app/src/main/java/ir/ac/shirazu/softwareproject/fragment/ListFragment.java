@@ -95,7 +95,7 @@ public class ListFragment extends Fragment {
         //  list.add("date")
 
 
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext().getApplicationContext(), android.R.layout.simple_spinner_item, list);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateSpinner.setAdapter(spinnerAdapter);
     }

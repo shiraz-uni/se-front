@@ -83,7 +83,7 @@ public class EditDialogFragment extends DialogFragment {
         firstFoodRadioButton = rootView.findViewById(R.id.first_food);
         secondFoodRadioButton = rootView.findViewById(R.id.second_food);
         foodRadioGroup = rootView.findViewById(R.id.food_radio_group);
-        restaurantSpinner = rootView.findViewById(R.id.resturant);
+        restaurantSpinner = rootView.findViewById(R.id.restaurant);
         okButton = rootView.findViewById(R.id.ok);
         cancelButton = rootView.findViewById(R.id.cancel);
         seenButton = rootView.findViewById(R.id.seen_button);
