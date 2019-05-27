@@ -17,7 +17,7 @@ import java.util.Random;
 import ir.ac.shirazu.softwareproject.Date;
 import ir.ac.shirazu.softwareproject.FoodInfo;
 import ir.ac.shirazu.softwareproject.MealInfo;
-import ir.ac.shirazu.softwareproject.MealType;
+import ir.ac.shirazu.softwareproject.MealName;
 import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.ReserveState;
 import ir.ac.shirazu.softwareproject.Utility;
@@ -75,15 +75,15 @@ public class WeeklyFragment extends Fragment {
     private ArrayList<WeeklyItem> generateRandomData() {
         ArrayList<WeeklyItem> items = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            items.add(new WeeklyItem(getFoodInfo(MealType.BREAKFAST),
-                    getFoodInfo(MealType.LUNCH),
-                    getFoodInfo(MealType.DINNER)
+            items.add(new WeeklyItem(getFoodInfo(MealName.BREAKFAST),
+                    getFoodInfo(MealName.LUNCH),
+                    getFoodInfo(MealName.DINNER)
             ));
         }
         return items;
     }
 
-    private MealInfo getFoodInfo(MealType mealType) {
+    private MealInfo getFoodInfo(MealName mealName) {
 
         Utility utility = Utility.getInstance(getContext().getApplicationContext());
         Random random = new Random();
@@ -96,21 +96,21 @@ public class WeeklyFragment extends Fragment {
         switch (reservedStateRand) {
             case 0:
                 state = ReserveState.EDITABLE_RESERVED;
-                mealInfo = new MealInfo(date, mealType, state, firstFood,
-                        secondFood, firstFood.getFoodId(), utility.getSelfsInfo().get(3));
+                mealInfo = new MealInfo(date, mealName, state, firstFood,
+                        secondFood, firstFood.getFoodId(), utility.getSelfsInfo().get(3),null);
                 break;
             case 1:
                 state = ReserveState.NON_EDITABLE_RESERVED;
-                mealInfo = new MealInfo(date, mealType, state, firstFood,
-                        secondFood, firstFood.getFoodId(), utility.getSelfsInfo().get(7));
+                mealInfo = new MealInfo(date, mealName, state, firstFood,
+                        secondFood, firstFood.getFoodId(), utility.getSelfsInfo().get(7),null);
                 break;
             case 2:
                 state = ReserveState.UNPLANNED;
-                mealInfo = new MealInfo(date, mealType, state);
+                mealInfo = new MealInfo(date, mealName, state);
                 break;
             case 3:
                 state = ReserveState.NOT_RESERVED;
-                mealInfo = new MealInfo(date, mealType, state, firstFood,
+                mealInfo = new MealInfo(date, mealName, state, firstFood,
                         secondFood);
 
 

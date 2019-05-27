@@ -87,7 +87,7 @@ public class EditDialogFragment extends DialogFragment {
         deleteButton = rootView.findViewById(R.id.delete_button);
         submitButtonsContainer = rootView.findViewById(R.id.submit_buttons_container);
 
-        mealName.setText(mMealInfo.getMealName());
+        mealName.setText(mMealInfo.getMealNamePersian());
         day.setText(mMealInfo.getDate().getDayOfWeek());
         date.setText(mMealInfo.getDate().getDateInString());
         setRestaurantAdapter();
@@ -206,7 +206,7 @@ public class EditDialogFragment extends DialogFragment {
                 mMealInfo.setReservedSelf(null);
                 mMealInfo.setReserveState(ReserveState.NOT_RESERVED);
                 deleteQuery();
-                mDialogFragmentCallBack.changeUi(clickedItemRow, mMealInfo.getMealType());
+                mDialogFragmentCallBack.changeUi(clickedItemRow, mMealInfo.getMealName());
                 dismiss();
             }
         });
@@ -245,7 +245,7 @@ public class EditDialogFragment extends DialogFragment {
                         buyQuery();
                         break;
                 }
-                mDialogFragmentCallBack.changeUi(clickedItemRow, mMealInfo.getMealType());
+                mDialogFragmentCallBack.changeUi(clickedItemRow, mMealInfo.getMealName());
                 dismiss();
             }
         });

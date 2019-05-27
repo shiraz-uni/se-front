@@ -4,26 +4,30 @@ import java.io.Serializable;
 
 public class MealInfo implements Serializable {
     private Date date;
-    private MealType mealType;
+    private MealName mealName;
     private ReserveState reserveState;
     private FoodInfo firstFood, secondFood;
     private int reservedFoodId;
     private Self reservedSelf;
+    private MealType mealType;
 
-    public MealInfo(Date date, MealType mealType, ReserveState reserveState, FoodInfo firstFood,
-                    FoodInfo secondFood, int reservedFoodId, Self reservedSelf) {
+
+    public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood,
+                    FoodInfo secondFood, int reservedFoodId, Self reservedSelf,MealType mealType) {
         this.date = date;
-        this.mealType = mealType;
+        this.mealName = mealName;
         this.reserveState = reserveState;
         if (reserveState == ReserveState.UNPLANNED) {
             firstFood = secondFood = null;
             reservedSelf = null;
             reservedFoodId = -1;
         }
+
         this.firstFood = firstFood;
         this.secondFood = secondFood;
         this.reservedFoodId = reservedFoodId;
         this.reservedSelf = reservedSelf;
+        this.mealType = mealType;
     }
 
     /**
@@ -34,9 +38,9 @@ public class MealInfo implements Serializable {
      * <p>
      * reservedSelf : null
      */
-    public MealInfo(Date date, MealType mealType, ReserveState reserveState, FoodInfo firstFood, FoodInfo secondFood) {
-        this(date, mealType, reserveState, firstFood,
-                secondFood, -1, null);
+    public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood, FoodInfo secondFood) {
+        this(date, mealName, reserveState, firstFood,
+                secondFood, -1, null,null);
     }
 
     /**
@@ -47,8 +51,8 @@ public class MealInfo implements Serializable {
      * <p>
      * reservedSelf : firstFood : secondFood : null
      */
-    public MealInfo(Date date, MealType mealType, ReserveState reserveState) {
-        this(date, mealType, reserveState, null,
+    public MealInfo(Date date, MealName mealName, ReserveState reserveState) {
+        this(date, mealName, reserveState, null,
                 null);
     }
 
@@ -73,13 +77,13 @@ public class MealInfo implements Serializable {
         return reservedFoodId == firstFood.getFoodId() ? firstFood : secondFood;
     }
 
-    public MealType getMealType() {
-        return mealType;
+    public MealName getMealName() {
+        return mealName;
     }
 
-    public String getMealName() {
+    public String getMealNamePersian() {
         String name = "";
-        switch (mealType) {
+        switch (mealName) {
             case BREAKFAST:
                 name = "صبحانه";
                 break;
@@ -124,5 +128,14 @@ public class MealInfo implements Serializable {
     public void setReservedSelf(Self reservedSelf) {
         this.reservedSelf = reservedSelf;
     }
+
+    public MealType getMealType() {
+        return mealType;
+    }
+
+    public void setMealType(MealType mealType) {
+        this.mealType = mealType;
+    }
+
 
 }

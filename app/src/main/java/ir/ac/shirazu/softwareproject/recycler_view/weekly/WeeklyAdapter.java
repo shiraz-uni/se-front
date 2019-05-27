@@ -18,7 +18,7 @@ import java.util.List;
 
 
 import ir.ac.shirazu.softwareproject.MealInfo;
-import ir.ac.shirazu.softwareproject.MealType;
+import ir.ac.shirazu.softwareproject.MealName;
 import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.ReserveState;
 import ir.ac.shirazu.softwareproject.activity.MainActivity;
@@ -30,7 +30,7 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
     private FragmentManager mFragmentManager;
 
     public interface DialogFragmentCallBack extends Serializable {
-        public void changeUi(int clickedItemRow, MealType mealType);
+        public void changeUi(int clickedItemRow, MealName mealName);
     }
 
     public WeeklyAdapter(List<WeeklyItem> weeklyItems, Context context, FragmentManager fragmentManager) {
@@ -72,7 +72,7 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
                 public void onClick(View v) {
                     DialogFragmentCallBack s = new DialogFragmentCallBack() {
                         @Override
-                        public void changeUi(int clickedItemRow, MealType mealType) {
+                        public void changeUi(int clickedItemRow, MealName mealType) {
                             WeeklyItem changedItem = itemsInfo.get(clickedItemRow);
                             TextView textView = null;
                             MealInfo changedMealInfo = null;

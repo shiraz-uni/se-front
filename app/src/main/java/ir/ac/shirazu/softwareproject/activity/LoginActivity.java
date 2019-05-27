@@ -4,11 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import ir.ac.shirazu.softwareproject.R;
+import saman.zamani.persiandate.PersianDate;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -21,6 +23,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         usernameET = findViewById(R.id.username);
         passwordET = findViewById(R.id.password);
+
+//        PersianDate p = new PersianDate();
+//
+//        p.addDate(1398,1,10);
+//
+//        Log.d("here",String.valueOf(p.untilToday()[2]));
+//
+//
+
     }
 
     public void login(View view) {

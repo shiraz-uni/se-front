@@ -34,4 +34,9 @@ public class FoodInfo {
     public void setFoodId(int foodId) {
         this.foodId = foodId;
     }
+
+    @Override
+    public String toString() {
+        return foodName.toString();
+    }
 }
