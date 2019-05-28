@@ -2,6 +2,7 @@ package ir.ac.shirazu.softwareproject.recycler_view.list;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,39 +11,87 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ir.ac.shirazu.softwareproject.MealInfo;
 import ir.ac.shirazu.softwareproject.R;
+import ir.ac.shirazu.softwareproject.recycler_view.weekly.WeeklyItem;
+import saman.zamani.persiandate.PersianDate;
 
-public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
 
-    private List<ListItem> mydata;
+    //private List<ListItem> mydata;
+    private List<MealInfo> mydata;
+    PersianDate today = new PersianDate();
+    PersianDate tmp = new PersianDate();
 
-    public ListAdapter(List<ListItem> mydata) {
+    public ListAdapter(List<MealInfo> mydata) {
         this.mydata = mydata;
     }
 
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list, viewGroup, false);
 
-        return new MyViewHolder(itemView);
+        return new ListViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ListViewHolder listViewHolder, final int i) {
 
-        ListItem data = mydata.get(i);
+        MealInfo data = mydata.get(i);
+        if(data.getReservedFoodId() == 1){
+            listViewHolder.price.setText(String.valueOf(data.getFirstFood().getFoodPrice()));
+            listViewHolder.foodName.setText(data.getFirstFood().getFoodName());
+        }
 
-        myViewHolder.price.setText(data.getPrice());
-        myViewHolder.meal.setText(data.getMeal());
-        myViewHolder.mealType.setText(data.getType());
-        myViewHolder.foodName.setText(data.getFood());
-        myViewHolder.dateBought.setText(data.getDate());
-        myViewHolder.dayBought.setText(data.getDay());
-        myViewHolder.reservedPlace.setText(data.getReservedPlace());
+        else if(data.getReservedFoodId() == 2){
+            listViewHolder.price.setText(String.valueOf(data.getSecondFood().getFoodPrice()));
+            listViewHolder.foodName.setText(data.getSecondFood().getFoodName());
+
+        }
+
+        tmp.setShDay(data.getDate().getDay());
+        tmp.setShMonth(data.getDate().getMonth());
+        tmp.setShYear(data.getDate().getYear());
+        listViewHolder.meal.setText(data.getMealNamePersian());
+        listViewHolder.mealType.setText(data.getMealType().toString());
+
+        listViewHolder.dateBought.setText(data.getDate().getDateInString());
+
+        listViewHolder.dayBought.setText(tmp.dayName());
+        listViewHolder.reservedPlace.setText(data.getReservedSelf().getSelfName());
+
+        PersianDate coupondDate = new PersianDate();
+
+        coupondDate.addDate(data.getDate().getYear(),data.getDate().getMonth(),data.getDate().getDay());
+
+
+
+      ///  Log.d("i :",i+"");
+
+       // Log.d("today",today.toString());
+
+        if (coupondDate.before(today)) listViewHolder.delete.setVisibility(View.GONE);
+
+
+        listViewHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Todo: request to server to  delete a meal
+
+                mydata.remove(i);
+                notifyDataSetChanged();
+                
+            }
+        });
+
+        //PersianDate today = new PersianDate();
+
+
+
     }
 
 
@@ -54,7 +103,7 @@ public class ListAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
 }
 
-class MyViewHolder extends RecyclerView.ViewHolder {
+class ListViewHolder extends RecyclerView.ViewHolder {
     TextView dayBought;
     TextView dateBought;
     ImageView delete;
@@ -65,7 +114,7 @@ class MyViewHolder extends RecyclerView.ViewHolder {
     TextView reservedPlace;
 
 
-    public MyViewHolder(@NonNull View itemView) {
+    public ListViewHolder(@NonNull View itemView) {
         super(itemView);
         dateBought = itemView.findViewById(R.id.date_bought);
         dayBought = itemView.findViewById(R.id.day_bought);
