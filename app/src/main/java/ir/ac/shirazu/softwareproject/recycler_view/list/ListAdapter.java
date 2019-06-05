@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ir.ac.shirazu.softwareproject.server_api.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
 import ir.ac.shirazu.softwareproject.R;
 import saman.zamani.persiandate.PersianDate;
 

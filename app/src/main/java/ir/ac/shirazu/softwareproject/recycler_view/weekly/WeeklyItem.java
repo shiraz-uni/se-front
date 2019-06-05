@@ -1,7 +1,7 @@
 package ir.ac.shirazu.softwareproject.recycler_view.weekly;
 
 
-import ir.ac.shirazu.softwareproject.server_api.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
 
 public class WeeklyItem {
     private MealInfo breakfastInfo;

@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import ir.ac.shirazu.softwareproject.server_api.MealInfo;
-import ir.ac.shirazu.softwareproject.server_api.MealName;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealName;
 import ir.ac.shirazu.softwareproject.R;
-import ir.ac.shirazu.softwareproject.server_api.ReserveState;
+import ir.ac.shirazu.softwareproject.server_api.Meal.ReserveState;
 import ir.ac.shirazu.softwareproject.activity.MainActivity;
 import ir.ac.shirazu.softwareproject.fragment.EditDialogFragment;
 
