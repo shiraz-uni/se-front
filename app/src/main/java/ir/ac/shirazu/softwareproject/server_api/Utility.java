@@ -1,9 +1,11 @@
-package ir.ac.shirazu.softwareproject;
+package ir.ac.shirazu.softwareproject.server_api;
 
 import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ir.ac.shirazu.softwareproject.R;
 
 public class Utility {
 

@@ -17,11 +17,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import ir.ac.shirazu.softwareproject.FoodInfo;
-import ir.ac.shirazu.softwareproject.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.FoodInfo;
+import ir.ac.shirazu.softwareproject.server_api.MealInfo;
 import ir.ac.shirazu.softwareproject.R;
-import ir.ac.shirazu.softwareproject.ReserveState;
-import ir.ac.shirazu.softwareproject.Utility;
+import ir.ac.shirazu.softwareproject.server_api.ReserveState;
+import ir.ac.shirazu.softwareproject.server_api.Utility;
 import ir.ac.shirazu.softwareproject.recycler_view.weekly.WeeklyAdapter;
 
 public class EditDialogFragment extends DialogFragment {

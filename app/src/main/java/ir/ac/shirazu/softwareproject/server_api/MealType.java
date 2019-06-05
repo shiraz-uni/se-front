@@ -1,4 +1,4 @@
-package ir.ac.shirazu.softwareproject;
+package ir.ac.shirazu.softwareproject.server_api;
 
 public enum MealType {
     EMERGENCY , NORMAL ,  FORGET;

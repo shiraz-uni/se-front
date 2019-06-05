@@ -2,7 +2,6 @@ package ir.ac.shirazu.softwareproject.recycler_view.list;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ir.ac.shirazu.softwareproject.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.MealInfo;
 import ir.ac.shirazu.softwareproject.R;
-import ir.ac.shirazu.softwareproject.recycler_view.weekly.WeeklyItem;
 import saman.zamani.persiandate.PersianDate;
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
