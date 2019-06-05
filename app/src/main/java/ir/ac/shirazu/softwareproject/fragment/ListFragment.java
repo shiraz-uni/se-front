@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +18,16 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.ac.shirazu.softwareproject.Date;
-import ir.ac.shirazu.softwareproject.FoodInfo;
-import ir.ac.shirazu.softwareproject.MealInfo;
-import ir.ac.shirazu.softwareproject.MealName;
-import ir.ac.shirazu.softwareproject.MealType;
+import ir.ac.shirazu.softwareproject.server_api.Date;
+import ir.ac.shirazu.softwareproject.server_api.FoodInfo;
+import ir.ac.shirazu.softwareproject.server_api.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.MealName;
+import ir.ac.shirazu.softwareproject.server_api.MealType;
 import ir.ac.shirazu.softwareproject.R;
-import ir.ac.shirazu.softwareproject.ReserveState;
-import ir.ac.shirazu.softwareproject.Self;
-import ir.ac.shirazu.softwareproject.Utility;
+import ir.ac.shirazu.softwareproject.server_api.ReserveState;
+import ir.ac.shirazu.softwareproject.server_api.Self;
+import ir.ac.shirazu.softwareproject.server_api.Utility;
 import ir.ac.shirazu.softwareproject.recycler_view.list.ListAdapter;
-import ir.ac.shirazu.softwareproject.recycler_view.list.ListItem;
 
 public class ListFragment extends Fragment {
 
