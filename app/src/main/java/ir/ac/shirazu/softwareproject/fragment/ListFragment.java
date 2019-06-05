@@ -18,15 +18,15 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.ac.shirazu.softwareproject.server_api.Date;
-import ir.ac.shirazu.softwareproject.server_api.FoodInfo;
-import ir.ac.shirazu.softwareproject.server_api.MealInfo;
-import ir.ac.shirazu.softwareproject.server_api.MealName;
-import ir.ac.shirazu.softwareproject.server_api.MealType;
+import ir.ac.shirazu.softwareproject.server_api.Meal.Date;
+import ir.ac.shirazu.softwareproject.server_api.Meal.FoodInfo;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealName;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealType;
 import ir.ac.shirazu.softwareproject.R;
-import ir.ac.shirazu.softwareproject.server_api.ReserveState;
-import ir.ac.shirazu.softwareproject.server_api.Self;
-import ir.ac.shirazu.softwareproject.server_api.Utility;
+import ir.ac.shirazu.softwareproject.server_api.Meal.ReserveState;
+import ir.ac.shirazu.softwareproject.server_api.Meal.Self;
+import ir.ac.shirazu.softwareproject.server_api.Meal.Utility;
 import ir.ac.shirazu.softwareproject.recycler_view.list.ListAdapter;
 
 public class ListFragment extends Fragment {

@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import ir.ac.shirazu.softwareproject.server_api.Date;
-import ir.ac.shirazu.softwareproject.server_api.FoodInfo;
-import ir.ac.shirazu.softwareproject.server_api.MealInfo;
-import ir.ac.shirazu.softwareproject.server_api.MealName;
+import ir.ac.shirazu.softwareproject.server_api.Meal.Date;
+import ir.ac.shirazu.softwareproject.server_api.Meal.FoodInfo;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealName;
 import ir.ac.shirazu.softwareproject.R;
-import ir.ac.shirazu.softwareproject.server_api.ReserveState;
-import ir.ac.shirazu.softwareproject.server_api.Utility;
+import ir.ac.shirazu.softwareproject.server_api.Meal.ReserveState;
+import ir.ac.shirazu.softwareproject.server_api.Meal.Utility;
 import ir.ac.shirazu.softwareproject.recycler_view.weekly.WeeklyAdapter;
 import ir.ac.shirazu.softwareproject.recycler_view.weekly.WeeklyItem;
 
