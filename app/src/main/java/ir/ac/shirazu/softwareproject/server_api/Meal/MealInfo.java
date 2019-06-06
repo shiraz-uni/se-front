@@ -11,9 +11,8 @@ public class MealInfo implements Serializable {
     private Self reservedSelf;
     private MealType mealType;
 
-
     public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood,
-                    FoodInfo secondFood, int reservedFoodId, Self reservedSelf,MealType mealType) {
+                    FoodInfo secondFood, int reservedFoodId, Self reservedSelf, MealType mealType) {
         this.date = date;
         this.mealName = mealName;
         this.reserveState = reserveState;
@@ -40,7 +39,7 @@ public class MealInfo implements Serializable {
      */
     public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood, FoodInfo secondFood) {
         this(date, mealName, reserveState, firstFood,
-                secondFood, -1, null,null);
+                secondFood, -1, null, null);
     }
 
     /**
