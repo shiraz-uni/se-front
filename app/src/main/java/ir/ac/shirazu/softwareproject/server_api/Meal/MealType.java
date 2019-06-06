@@ -1,17 +1,17 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
 public enum MealType {
-    EMERGENCY , NORMAL ,  FORGET;
+    EMERGENCY,
+    NORMAL,
+    FORGET;
 
     @Override
     public String toString() {
-        if(this == NORMAL){
+        if (this == NORMAL) {
             return "عادی";
-        }
-        else if(this == EMERGENCY){
+        } else if (this == EMERGENCY) {
             return "اضطراری";
-        }
-        else {
+        } else {
             return "فراموشی";
         }
     }
