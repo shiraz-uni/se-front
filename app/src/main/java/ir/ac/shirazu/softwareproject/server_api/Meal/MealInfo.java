@@ -7,13 +7,10 @@ public class MealInfo implements Serializable {
     private MealName mealName;
     private ReserveState reserveState;
     private FoodInfo firstFood, secondFood;
-    private int reservedFoodId, couponId;
+    private int reservedFoodId;
     private Self reservedSelf;
     private MealType mealType;
-    private ReservedFood reservedFood;
-    // ToDo: couponId | state | dateInStringHossein
-    public boolean state;
-    private String dateInStringHossein;
+
 
     public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood,
                     FoodInfo secondFood, int reservedFoodId, Self reservedSelf, MealType mealType) {
@@ -59,10 +56,6 @@ public class MealInfo implements Serializable {
                 null);
     }
 
-    public MealInfo() {
-
-    }
-
     public Date getDate() {
         return date;
     }
@@ -81,7 +74,7 @@ public class MealInfo implements Serializable {
     }
 
     public FoodInfo getReservedFoodInfo() {
-        return this.state ? firstFood : secondFood;
+        return reservedFoodId == firstFood.getFoodId() ? firstFood : secondFood;
     }
 
     public MealName getMealName() {
@@ -143,95 +136,4 @@ public class MealInfo implements Serializable {
     public void setMealType(MealType mealType) {
         this.mealType = mealType;
     }
-
-    //////////////////////////////// Hossein /////////////////////
-
-    public void setMealName(String mealNamestr) {
-
-        switch (mealNamestr) {
-            case "dinner":
-                this.mealName = MealName.DINNER;
-                break;
-
-            case "lunch":
-                this.mealName = MealName.LUNCH;
-                break;
-            case "breakfast":
-                this.mealName = MealName.BREAKFAST;
-                break;
-        }
-    }
-
-
-    public void show() {
-
-        System.out.println("Data:" + this.dateInStringHossein);
-        System.out.println("Meal Type:" + this.mealName);
-        System.out.println("Reserve State:" + this.reserveState);
-        System.out.println("First Food:" + this.firstFood);
-        System.out.println("secondFood:" + this.secondFood);
-        System.out.println("reserved Self:" + this.reservedSelf.getSelfName() + " | " + reservedSelf.getSelfId());
-        System.out.println("Reserved Food Id:" + this.reservedFoodId);
-        System.out.println("Coupon ID:" + this.couponId);
-        System.out.println("State:" + this.state);
-    }
-
-    public void setSelfData(int selfId, String selfName) {
-        this.reservedSelf = new Self(selfId, selfName);
-    }
-
-
-    public void setFoodId(int id) {
-        this.reservedFoodId = id;
-    }
-
-    public void setFoods(String firstFoodName, int firstFoodPrice, String secondFoodName, int secondFoodPrice) {
-        this.firstFood = new FoodInfo();
-        this.secondFood = new FoodInfo();
-
-        this.firstFood.setFoodName(firstFoodName);
-        this.firstFood.setFoodPrice(firstFoodPrice);
-        this.secondFood.setFoodName(secondFoodName);
-        this.secondFood.setFoodPrice(secondFoodPrice);
-    }
-
-    public void setSelf(String selfName) {
-        this.reservedSelf.setSelfName(selfName);
-    }
-
-    public String getdateStringH() {
-        return dateInStringHossein;
-    }
-
-    public void setdateStringH(String date) {
-        this.dateInStringHossein = date;
-    }
-
-
-    public void setMealName(MealName mealName) {
-        this.mealName = mealName;
-    }
-
-
-    //////////////////////////////////////////////////////////////
-
-
-    public void setFirstFood(FoodInfo firstFood) {
-        this.firstFood = firstFood;
-    }
-
-    public void setSecondFood(FoodInfo secondFood) {
-        this.secondFood = secondFood;
-    }
-
-
-    public int getCouponId() {
-        return couponId;
-    }
-
-    public void setCouponId(int couponId) {
-        this.couponId = couponId;
-    }
-
-
 }
