@@ -11,4 +11,5 @@ public enum ReserveState {
     NON_EDITABLE_RESERVED,
     UNPLANNED,
     NOT_RESERVED,
+    RESERVED
 }

@@ -11,6 +11,10 @@ public class FoodInfo {
         this.foodId = foodId;
     }
 
+    public FoodInfo() {
+
+    }
+
     public String getFoodName() {
         return foodName;
     }
