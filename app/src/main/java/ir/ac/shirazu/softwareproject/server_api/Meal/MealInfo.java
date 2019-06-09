@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 public class MealInfo implements Serializable {
     private Date date;
+    private String date_String ;
     private MealName mealName;
     private ReserveState reserveState;
     private FoodInfo firstFood, secondFood;
     private int reservedFoodId;
     private Self reservedSelf;
     private MealType mealType;
+
+    private int couponId ;
+    public Boolean state ;
 
 
     public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood,
@@ -135,5 +139,61 @@ public class MealInfo implements Serializable {
 
     public void setMealType(MealType mealType) {
         this.mealType = mealType;
+    }
+
+
+   //Hossein's Edits
+    public void setMealName(String mealNamestr){
+
+        switch (mealNamestr){
+            case "dinner":
+                this.mealName = MealName.DINNER;
+                break;
+
+            case "lunch":
+                this.mealName = MealName.LUNCH;
+                break;
+            case "breakfast":
+                this.mealName = MealName.BREAKFAST;
+                break;
+        }
+    }
+
+    public void setSelfData(String selfName , int selfId){
+        this.reservedSelf = new Self();
+        this.reservedSelf.setSelfName(selfName);
+        this.reservedSelf.setSelfId(selfId);
+    }
+
+    public void setFoodId(int id){
+        this.reservedFoodId = id ;
+    }
+
+    public void setFoods(String food1 , int food1Price , String food2 , int food2Price){
+        this.firstFood = new FoodInfo();
+        this.secondFood = new FoodInfo();
+
+        this.firstFood.setFoodName(food1);
+        this.firstFood.setFoodPrice(food1Price);
+        this.secondFood.setFoodName(food2);
+        this.secondFood.setFoodPrice(food2Price);
+    }
+
+    public void setSelf(String selfName){
+        this.reservedSelf.setSelfName(selfName);
+    }
+
+    public MealInfo(){}
+
+    public int getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(int couponId) {
+        this.couponId = couponId;
+    }
+
+    public void setDate_String(String date){
+        this.date_String = date ;
     }
 }

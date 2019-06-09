@@ -24,4 +24,8 @@ public class Self {
     public void setSelfName(String selfName) {
         this.selfName = selfName;
     }
+
+    public Self(){}
+
+
 }
