@@ -25,7 +25,6 @@ public class Self {
         this.selfName = selfName;
     }
 
-    public Self(){}
-
-
+    public Self() {
+    }
 }

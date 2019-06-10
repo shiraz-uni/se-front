@@ -41,5 +41,6 @@ public class FoodInfo {
     }
 
     //Hossein's Edits
-    public FoodInfo(){}
+    public FoodInfo() {
+    }
 }

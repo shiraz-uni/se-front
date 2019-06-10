@@ -48,8 +48,8 @@ public class Date {
         setDayOfWeek();
     }
 
-    public Date(String s){
-        String []  a = s.split(" ");
+    public Date(String s) {
+        String[] a = s.split(" ");
         a = a[1].split("/");
         this.year = Integer.valueOf(a[0]);
         this.month = Integer.valueOf(a[1]);
@@ -119,18 +119,16 @@ public class Date {
         convertDateToJalali(date);
     }
 
-    public boolean compare (String s){
+    public boolean compare(String s) {
 
-        String str [] = s.split(" ");
+        String str[] = s.split(" ");
 
-        if(str[1].equals(this.getDateInString())) return true;
+        if (str[1].equals(this.getDateInString())) return true;
         else return false;
     }
 
-    public static Date today(){
+    public static Date today() {
         PersianDate a = new PersianDate();
-        return new Date(a.getShDay(),a.getShMonth(),a.getShYear());
+        return new Date(a.getShDay(), a.getShMonth(), a.getShYear());
     }
-
-
 }

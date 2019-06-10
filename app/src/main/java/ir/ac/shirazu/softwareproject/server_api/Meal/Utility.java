@@ -51,7 +51,6 @@ public class Utility {
         return selfs.get(index);
     }
 
-
     public List<String> getSelfsName() {
         if (this.selfsName == null) {
             String[] gainedSelfsName =
