@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class MealInfo implements Serializable {
     private Date date;
-    private String date_String ;
+    private String date_String;
     private MealName mealName;
     private ReserveState reserveState;
     private FoodInfo firstFood, secondFood;
@@ -12,9 +12,8 @@ public class MealInfo implements Serializable {
     private Self reservedSelf;
     private MealType mealType;
 
-    private int couponId ;
-    public Boolean state ;
-
+    private int couponId;
+    public Boolean state;
 
     public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood,
                     FoodInfo secondFood, int reservedFoodId, Self reservedSelf, MealType mealType) {
@@ -141,11 +140,10 @@ public class MealInfo implements Serializable {
         this.mealType = mealType;
     }
 
+    //Hossein's Edits
+    public void setMealName(String mealNamestr) {
 
-   //Hossein's Edits
-    public void setMealName(String mealNamestr){
-
-        switch (mealNamestr){
+        switch (mealNamestr) {
             case "dinner":
                 this.mealName = MealName.DINNER;
                 break;
@@ -159,17 +157,17 @@ public class MealInfo implements Serializable {
         }
     }
 
-    public void setSelfData(String selfName , int selfId){
+    public void setSelfData(String selfName, int selfId) {
         this.reservedSelf = new Self();
         this.reservedSelf.setSelfName(selfName);
         this.reservedSelf.setSelfId(selfId);
     }
 
-    public void setFoodId(int id){
-        this.reservedFoodId = id ;
+    public void setFoodId(int id) {
+        this.reservedFoodId = id;
     }
 
-    public void setFoods(String food1 , int food1Price , String food2 , int food2Price){
+    public void setFoods(String food1, int food1Price, String food2, int food2Price) {
         this.firstFood = new FoodInfo();
         this.secondFood = new FoodInfo();
 
@@ -179,11 +177,12 @@ public class MealInfo implements Serializable {
         this.secondFood.setFoodPrice(food2Price);
     }
 
-    public void setSelf(String selfName){
+    public void setSelf(String selfName) {
         this.reservedSelf.setSelfName(selfName);
     }
 
-    public MealInfo(){}
+    public MealInfo() {
+    }
 
     public int getCouponId() {
         return couponId;
@@ -193,7 +192,7 @@ public class MealInfo implements Serializable {
         this.couponId = couponId;
     }
 
-    public void setDate_String(String date){
-        this.date_String = date ;
+    public void setDate_String(String date) {
+        this.date_String = date;
     }
 }
