@@ -3,14 +3,19 @@ package ir.ac.shirazu.softwareproject.server_api.Meal;
 
 
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,8 +23,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
-public class MyKit {
-
+public class MyKit extends AsyncTask<String, String, String> {
+    public static Student student = new Student();
     private static String loginURL = "http://nowaw.pythonanywhere.com/login/login" ;
     private static String studentInfoURL = "http://nowaw.pythonanywhere.com/login/self_data" ;
     private static String logoutURL = "http://nowaw.pythonanywhere.com/login/logout" ;
@@ -81,29 +86,23 @@ public class MyKit {
 
 
     private static String sendPostRequest(String jsonInformation , String serverURL) throws Exception {
-        Log.d("HOSSEIN", "In SendPostRequest Method");
+
         String url = serverURL;
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        Log.d("HOSSEIN", "kir1");
         //add reuqest header
         con.setRequestMethod("POST");
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-        Log.d("HOSSEIN", "kir2");
         String urlParameters = jsonInformation ;
-
         // Send post request
-        Log.d("HOSSEIN", "kir3");
         con.setDoOutput(true);
-        Log.d("HOSSEIN", "kir3-1");
+        Thread.sleep(1000);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        Log.d("HOSSEIN", "kir3-2");
+        Thread.sleep(1000);
         wr.writeBytes(urlParameters);
-        Log.d("HOSSEIN", "kir3-3");
         wr.flush();
         wr.close();
-        Log.d("HOSSEIN", "kir4");
         int responseCode = con.getResponseCode();
         //System.out.println("\nSending 'POST' request to URL : " + url);
         //System.out.println("Post parameters : " + urlParameters);
@@ -216,16 +215,16 @@ public class MyKit {
     }
 
 
-
-
     //PUBLIC
-    public static Student studentLogin(String userName , String password){
+    public  Student studentLogin(String userName , String password){
         Student newStudent = new Student() ;
+
 
         try {
 
             //GET Student LOGIN TOKEN
             String userToken = sendPostRequest(loginInformationToJson(userName , password) , loginURL ) ;
+            //String userToken = doInBackground(loginInformationToJson(userName , password) , loginURL);
             Log.d("HOSSEIN", "Outside SendPostRequest Method");
             newStudent.setUser_token(userToken);
             Log.d("HOSSEIN", "we have student with Class : " + newStudent);
@@ -234,7 +233,8 @@ public class MyKit {
             //Fill Student's PEROSNAL INFO
 
             String userInformation = sendPostRequest(tokenToJson(userToken),studentInfoURL);
-            //System.out.println(userInformation);
+            //String userInformation = doInBackground(tokenToJson(userToken),studentInfoURL);
+
 
 
 
@@ -254,7 +254,7 @@ public class MyKit {
 
             //Logout
             System.out.println("Logging Out");
-            sendPostRequest(tokenToJson(userToken),logoutURL);
+            doInBackground(tokenToJson(userToken),logoutURL);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -263,17 +263,57 @@ public class MyKit {
         return newStudent ;
     }
 
+    @Override
+    protected String doInBackground(String... prams)  {
+        String jsonInformation = prams[0];
+        String url = prams[1];
+        OutputStream out = null;
+        try {
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setReadTimeout(2000);
+            con.setConnectTimeout(2000);
+            con.setRequestMethod("POST");
+            con.connect();
 
-    public void test(){
-        Log.d("HOSSEIN", "test: ");
-        Student newStudent = MyKit.studentLogin("10001" , "123");
-        if (newStudent == null ){
-            Log.d("HOSSEIN", "kir shodi");
+            BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            StringBuffer response = new StringBuffer();
+            String value ;
+            while ((value = bf.readLine()) != null) {
+                response.append(value);
+            }
+            return response.toString();
+
+        }catch (Exception e){
+
+            Log.d("HOSSEIN", e.toString());
+
         }
-        Log.d("HOSSEIN", newStudent.getFirstName());
-        Log.d("HOSSEIN", newStudent.getLastName());
-        Log.d("HOSSEIN", newStudent.getStudentNumber());
-        Log.d("HOSSEIN", newStudent.getSudentType());
+
+
+        return null;
+    }
+
+
+
+
+    public void test() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MyKit m = new MyKit();
+                    MyKit.student = m.studentLogin("10001", "123");
+                    Log.d("HOSSEIN", MyKit.student.getFirstName());
+                    Log.d("HOSSEIN", MyKit.student.getLastName());
+                    Log.d("HOSSEIN", MyKit.student.getStudentNumber());
+                    Log.d("HOSSEIN", MyKit.student.getSudentType());
+                } catch (Exception e) {
+                }
+
+            }
+        });
+        thread.start();
     }
 
 }
