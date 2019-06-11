@@ -39,8 +39,4 @@ public class FoodInfo {
     public String toString() {
         return foodName.toString();
     }
-
-    //Hossein's Edits
-    public FoodInfo() {
-    }
 }

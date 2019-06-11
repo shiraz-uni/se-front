@@ -19,6 +19,7 @@ import android.widget.TextView;
 import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.fragment.ListFragment;
 import ir.ac.shirazu.softwareproject.fragment.WeeklyFragment;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MyKit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
         onClickListeners();
+        new MyKit().test();
     }
 
     private void init() {
