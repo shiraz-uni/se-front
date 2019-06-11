@@ -21,14 +21,11 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-
-                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
-
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
-
+                finish();
             }
 
         }.start();
-
     }
 }

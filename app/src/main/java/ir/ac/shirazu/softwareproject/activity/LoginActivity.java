@@ -2,15 +2,13 @@ package ir.ac.shirazu.softwareproject.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import ir.ac.shirazu.softwareproject.R;
-import saman.zamani.persiandate.PersianDate;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -53,9 +51,10 @@ public class LoginActivity extends AppCompatActivity {
                         String username = usernameET.getText().toString();
                         String password = passwordET.getText().toString();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        if (isVerified(username, password))
+                        if (isVerified(username, password)) {
                             startActivity(intent);
-                        else {
+                            finish();
+                        } else {
                             Toast.makeText(getApplicationContext(), getString(R.string.not_verified), Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();

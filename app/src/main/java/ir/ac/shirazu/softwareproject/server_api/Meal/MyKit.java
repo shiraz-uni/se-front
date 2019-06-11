@@ -29,7 +29,7 @@ public class MyKit extends AsyncTask<String, String, String> {
     private static void parseFoodInfo(String responseBody, Student student) {
 
         try {
-            FoodInfo foodInfo = new FoodInfo();
+//            FoodInfo foodInfo = new FoodInfo();
             JSONArray information = new JSONArray(responseBody);
             for (int i = 0; i < information.length(); i++) {
                 JSONObject album = information.getJSONObject(i);

@@ -167,14 +167,9 @@ public class MealInfo implements Serializable {
         this.reservedFoodId = id;
     }
 
-    public void setFoods(String food1, int food1Price, String food2, int food2Price) {
-        this.firstFood = new FoodInfo();
-        this.secondFood = new FoodInfo();
-
-        this.firstFood.setFoodName(food1);
-        this.firstFood.setFoodPrice(food1Price);
-        this.secondFood.setFoodName(food2);
-        this.secondFood.setFoodPrice(food2Price);
+    public void setFoods(String firstFoodName, int firstFoodPrice, String secondFoodName, int secondFoodPrice) {
+        this.firstFood = new FoodInfo(firstFoodName,firstFoodPrice);
+        this.secondFood = new FoodInfo(secondFoodName,secondFoodPrice);
     }
 
     public void setSelf(String selfName) {

@@ -11,6 +11,10 @@ public class FoodInfo {
         this.foodId = foodId;
     }
 
+    public FoodInfo(String foodName, int foodPrice) {
+        this(foodName, foodPrice, -1);
+    }
+
     public String getFoodName() {
         return foodName;
     }
@@ -38,9 +42,5 @@ public class FoodInfo {
     @Override
     public String toString() {
         return foodName.toString();
-    }
-
-    //Hossein's Edits
-    public FoodInfo() {
     }
 }
