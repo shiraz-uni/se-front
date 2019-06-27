@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class MealInfo implements Serializable {
     private Date date;
-    private String date_String;
     private MealName mealName;
     private ReserveState reserveState;
     private FoodInfo firstFood, secondFood;
@@ -187,7 +186,4 @@ public class MealInfo implements Serializable {
         this.couponId = couponId;
     }
 
-    public void setDate_String(String date) {
-        this.date_String = date;
-    }
 }

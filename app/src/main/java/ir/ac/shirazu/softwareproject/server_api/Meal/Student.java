@@ -31,7 +31,8 @@ public class Student {
                 //fill meal date and type
                 String[] date_type = keySet.get(i).split("_");
                 newMeal.setMealName(date_type[1]);
-                newMeal.setDate_String(date_type[0]);
+                newMeal.setDate(new Date(date_type[0],false));
+
                 //get meal information
                 JSONObject foodInfoObject = foodData.get(keySet.get(i));
                 int price1 = foodInfoObject.getInt("price1");
@@ -51,7 +52,7 @@ public class Student {
             }
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
@@ -80,25 +81,7 @@ public class Student {
     public void setAllStudentFoodInfo(ArrayList<MealInfo> allStudentFoodInfo) {
         this.allStudentFoodInfo = allStudentFoodInfo;
     }
-/*
-    private void showPersonalInfo(){
-        System.out.println("FirstName : " + this.firstName);
-        System.out.println("LastName : " + this.lastName);
-        System.out.println("StudentNumber : " + this.studentNumber);
-        System.out.println("Token : " + this.getUser_token());
-        System.out.println("Credit : " + this.credit);
-        System.out.println("ID : " + this.id);
-        System.out.println("\n");
-    }
-*/
-/*
-    public void show(){
-        System.out.println("\n=================== PERSONAL INFO ===============================\n");
-        showPersonalInfo();
-        System.out.println("\n=================== FOOD INFO ===============================\n");
-        showAllMeals();
-    }
-    */
+
 
     public String getFirstName() {
         return firstName;

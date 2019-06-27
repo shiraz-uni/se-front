@@ -19,6 +19,7 @@
     <string name="next_week">هفته بعد</string>
     <string name="choose_restaurant">انتخاب رستوران:</string>
     <string name="choose_food">انتخاب خوراک:</string>
+
     <string-array name="restaurants">
         <item>رستوران</item>
         <item>غذا خوری ارم</item>

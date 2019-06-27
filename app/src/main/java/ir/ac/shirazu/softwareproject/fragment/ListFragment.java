@@ -194,7 +194,7 @@ public class ListFragment extends Fragment {
 
 
 
-                MealInfo temp = new MealInfo(new Date(dateSpinner.getSelectedItem().toString()),mlname,ReserveState.EDITABLE_RESERVED,first,second,slctfood,resturant,MealType.NORMAL);
+                MealInfo temp = new MealInfo(new Date(dateSpinner.getSelectedItem().toString(),true),mlname,ReserveState.EDITABLE_RESERVED,first,second,slctfood,resturant,MealType.NORMAL);
 
                 int [] x= mealBoughtalready(dateSpinner.getSelectedItem().toString() , restaurantSpinner.getSelectedItemPosition() , mealSpinner.getSelectedItem().toString());
 
