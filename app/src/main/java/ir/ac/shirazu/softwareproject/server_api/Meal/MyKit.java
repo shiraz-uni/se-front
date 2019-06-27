@@ -1,13 +1,12 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
-import android.os.AsyncTask;
+import android.app.ProgressDialog;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -16,14 +15,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class MyKit extends AsyncTask<String, String, String> {
-    public static Student student = new Student();
+import ir.ac.shirazu.softwareproject.activity.LoginActivity;
+import ir.ac.shirazu.softwareproject.activity.LoginCallBack;
+import ir.ac.shirazu.softwareproject.activity.MainActivity;
+
+public class MyKit {
+    public static Student student ;
     private static String loginURL = "http://nowaw.pythonanywhere.com/login/login";
     private static String studentInfoURL = "http://nowaw.pythonanywhere.com/login/self_data";
     private static String logoutURL = "http://nowaw.pythonanywhere.com/login/logout";
     private static HttpURLConnection connection;
     private static String USER_AGENT = "Mozilla/5.0";
     private static String token;
+
+    private LoginCallBack loginCallBack ;
+    private ProgressDialog mDialog;
+
+
+    public void setLoginCallBack(LoginActivity loginCallBack) {
+        this.loginCallBack = loginCallBack;
+
+    }
+
+
 
     //PRIVATE
     private static void parseFoodInfo(String responseBody, Student student) {
@@ -88,24 +102,23 @@ public class MyKit extends AsyncTask<String, String, String> {
         String urlParameters = jsonInformation;
         // Send post request
         con.setDoOutput(true);
-        Thread.sleep(1000);
+     //   Thread.sleep(300);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        Thread.sleep(1000);
+        //Thread.sleep(300);
         wr.writeBytes(urlParameters);
         wr.flush();
         wr.close();
         int responseCode = con.getResponseCode();
-        //System.out.println("\nSending 'POST' request to URL : " + url);
-        //System.out.println("Post parameters : " + urlParameters);
-        //System.out.println("Response Code : " + responseCode);
         Log.d("HOSSEIN", "\nSending 'POST' request to URL : " + url);
         Log.d("HOSSEIN", "Post parameters : " + urlParameters);
         Log.d("HOSSEIN", "Response Code : " + responseCode);
 
+//        InputStream input = obj.openStream();
+        InputStream input = con.getInputStream();
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
+        InputStreamReader inputStreamReader = new InputStreamReader(input);
+        BufferedReader in = new BufferedReader(inputStreamReader);
+        String inputLine = "" ;
         StringBuffer response = new StringBuffer();
 
         while ((inputLine = in.readLine()) != null) {
@@ -113,9 +126,19 @@ public class MyKit extends AsyncTask<String, String, String> {
         }
         in.close();
 
-        //print result
-        //System.out.println(response.toString());
-        return response.toString();
+        String a = response.toString();
+
+        Log.d("responseeee",a);
+
+        if ( response.toString().contains("Wrong credentials")) {
+            return null;
+        }
+        else {
+            return response.toString();
+        }
+
+
+
     }
 
     private static void totalInfoToJSONs(String responseBody, HashMap<String, JSONObject> list) {
@@ -210,16 +233,17 @@ public class MyKit extends AsyncTask<String, String, String> {
 
             //GET Student LOGIN TOKEN
             String userToken = sendPostRequest(loginInformationToJson(userName, password), loginURL);
-            //String userToken = doInBackground(loginInformationToJson(userName , password) , loginURL);
+            if (userToken == null) {
+                return null;
+            }
             Log.d("HOSSEIN", "Outside SendPostRequest Method");
             newStudent.setUser_token(userToken);
-            Log.d("HOSSEIN", "we have student with Class : " + newStudent);
-            Log.d("HOSSEIN", "Token" + userToken);
+
 
             //Fill Student's PEROSNAL INFO
 
             String userInformation = sendPostRequest(tokenToJson(userToken), studentInfoURL);
-            //String userInformation = doInBackground(tokenToJson(userToken),studentInfoURL);
+
 
 
             //JSON Informations
@@ -232,23 +256,19 @@ public class MyKit extends AsyncTask<String, String, String> {
 
             //Fill MealInfo
             fillStudentMealInfo(newStudent, list.get("coupons"));
-
-            //Show All Data
-            //newStudent.show();
-
-            //Logout
-            System.out.println("Logging Out");
-            doInBackground(tokenToJson(userToken), logoutURL);
+            sendPostRequest(tokenToJson(userToken),logoutURL);
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null ;
         }
 
         return newStudent;
     }
 
-    @Override
-    protected String doInBackground(String... prams) {
+
+
+    protected String logout(String prams[]) {  /////////////This function was former Ondoingbackground()
         String jsonInformation = prams[0];
         String url = prams[1];
         OutputStream out = null;
@@ -270,8 +290,6 @@ public class MyKit extends AsyncTask<String, String, String> {
 
         } catch (Exception e) {
 
-            Log.d("HOSSEIN", e.toString());
-
         }
 
 
@@ -279,18 +297,19 @@ public class MyKit extends AsyncTask<String, String, String> {
     }
 
 
-    public void test() {
+    public void doLogin(final String user, final String pass) {
+
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    MyKit m = new MyKit();
-                    MyKit.student = m.studentLogin("10001", "123");
-                    Log.d("HOSSEIN", MyKit.student.getFirstName());
-                    Log.d("HOSSEIN", MyKit.student.getLastName());
-                    Log.d("HOSSEIN", MyKit.student.getStudentNumber());
-                    Log.d("HOSSEIN", MyKit.student.getSudentType());
+                   loginCallBack.onPreExecute();
+                    MyKit.student = studentLogin(user, pass);
+                    loginCallBack.onPostExecute();
+
                 } catch (Exception e) {
+
                 }
 
             }
@@ -299,3 +318,5 @@ public class MyKit extends AsyncTask<String, String, String> {
     }
 
 }
+
+

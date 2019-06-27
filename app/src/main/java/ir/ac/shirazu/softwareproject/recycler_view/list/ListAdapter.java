@@ -17,7 +17,7 @@ import saman.zamani.persiandate.PersianDate;
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
 
-    //private List<ListItem> mydata;
+
     private List<MealInfo> mydata;
     PersianDate today = new PersianDate();
     PersianDate tmp = new PersianDate();
@@ -68,10 +68,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
 
 
-      ///  Log.d("i :",i+"");
-
-       // Log.d("today",today.toString());
-
         if (coupondDate.before(today)) listViewHolder.delete.setVisibility(View.GONE);
 
 
@@ -86,10 +82,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
             }
         });
 
-        //PersianDate today = new PersianDate();
-
-
-
     }
 
 
@@ -97,7 +89,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     public int getItemCount() {
         return mydata.size();
     }
-
 
 }
 

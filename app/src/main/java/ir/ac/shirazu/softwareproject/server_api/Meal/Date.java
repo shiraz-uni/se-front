@@ -6,7 +6,6 @@ public class Date {
     private int day;
     private int month;
     private int year;
-    private String dayOfWeek;
 
     public int getDay() {
         return day;
@@ -32,31 +31,31 @@ public class Date {
         this.year = year;
     }
 
-    public void setDayOfWeek() {
-        PersianDate tmp = new PersianDate();
-        tmp.setShYear(this.year);
-        tmp.setShMonth(this.month);
-        tmp.setShDay(this.day);
-        this.dayOfWeek = tmp.dayName();
-    }
-
     public Date(int day, int month, int year) {
         validate(day, month, year);
         this.day = day;
         this.month = month;
         this.year = year;
-        setDayOfWeek();
     }
 
-    public Date(String s) {
-        String[] a = s.split(" ");
-        a = a[1].split("/");
-        this.year = Integer.valueOf(a[0]);
-        this.month = Integer.valueOf(a[1]);
-        this.day = Integer.valueOf(a[2]);
-        setDayOfWeek();
-
-
+    public Date(String date, boolean isForSpinner) {
+        PersianDate p = new PersianDate();
+        if (isForSpinner) {
+            String[] a = date.split(" ");
+            a = a[1].split("/");
+            this.year = Integer.valueOf(a[0]);
+            this.month = Integer.valueOf(a[1]);
+            this.day = Integer.valueOf(a[2]);
+        } else {
+            String[] s = date.split("/");
+            int year = Integer.valueOf(s[0]);
+            int month = Integer.valueOf(s[1]);
+            int day = Integer.valueOf(s[2]);
+            int[] data = p.toJalali(year, month, day);
+            this.year = data[0];
+            this.month = data[1];
+            this.day = data[2];
+        }
     }
 
     private void validate(int day, int month, int year) {
@@ -91,7 +90,11 @@ public class Date {
 //    }
 
     public String getDayOfWeek() {
-        return dayOfWeek;
+        PersianDate tmp = new PersianDate();
+        tmp.setShYear(this.year);
+        tmp.setShMonth(this.month);
+        tmp.setShDay(this.day);
+        return tmp.dayName();
 
     }
 
