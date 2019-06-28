@@ -22,7 +22,6 @@ import ir.ac.shirazu.softwareproject.fragment.WeeklyFragment;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MyKit;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final int WEEKLY_INDEX = 0;
     private static final int LIST_INDEX = 1;
     private Toolbar mToolbar;

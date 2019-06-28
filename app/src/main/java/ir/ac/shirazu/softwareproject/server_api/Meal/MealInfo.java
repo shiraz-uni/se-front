@@ -1,6 +1,10 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MealInfo implements Serializable {
     private Date date;
@@ -10,10 +14,11 @@ public class MealInfo implements Serializable {
     private int reservedFoodId;
     private Self reservedSelf;
     private MealType mealType;
+    private String key_id ;
 
     private int couponId;
     public Boolean state;
-
+    public static ArrayList<MealInfo> allAvailableMealInfo = new ArrayList<>();
     public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood,
                     FoodInfo secondFood, int reservedFoodId, Self reservedSelf, MealType mealType) {
         this.date = date;
@@ -81,6 +86,14 @@ public class MealInfo implements Serializable {
 
     public MealName getMealName() {
         return mealName;
+    }
+
+    public String getKey_id() {
+        return key_id;
+    }
+
+    public void setKey_id(String key_id) {
+        this.key_id = key_id;
     }
 
     public String getMealNamePersian() {
@@ -184,6 +197,39 @@ public class MealInfo implements Serializable {
 
     public void setCouponId(int couponId) {
         this.couponId = couponId;
+    }
+
+    public static void fillAvailableMeals(HashMap<String, JSONObject> foodData){
+        try {
+            ArrayList<String> keySet = new ArrayList<>();
+
+            for (String key : foodData.keySet()) {
+                keySet.add(key);
+            }
+
+            for (int i = 0; i < foodData.size(); i++) {
+                //create meal
+                MealInfo newMeal = new MealInfo();
+                //fill meal date and type
+                String[] date_type = keySet.get(i).split("_");
+                newMeal.setMealName(date_type[1]);
+                newMeal.setDate(new Date(date_type[0],false));
+
+                //get meal information
+                JSONObject foodInfoObject = foodData.get(keySet.get(i));
+                int price1 = foodInfoObject.getInt("price1");
+                int price2 = foodInfoObject.getInt("price2");
+                String foodName1 = foodInfoObject.getString("food_name1");
+                String foodName2 = foodInfoObject.getString("food_name2");
+                newMeal.setFoods(foodName1, price1, foodName2, price2);
+                newMeal.setKey_id(foodInfoObject.getString("key_id"));
+                allAvailableMealInfo.add(newMeal);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
