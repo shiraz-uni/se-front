@@ -243,10 +243,10 @@ public class MyKit {
             String userInformation = sendPostRequest(tokenToJson(userToken), studentInfoURL);
 
 
-
             //JSON Informations
             HashMap<String, JSONObject> list = new HashMap<>();
             totalInfoToJSONs(userInformation, list);
+
 
             //Fill Student personal Data
             fillStudentPersonalData(newStudent, list.get("student"));
@@ -254,10 +254,16 @@ public class MyKit {
 
             //Fill MealInfo
             fillStudentMealInfo(newStudent, list.get("coupons"));
-            sendPostRequest(tokenToJson(userToken),logoutURL);
+
 
             //Fill Self FoodInfo
             fillSelfFoodInfo(list.get("self_data"));
+
+
+            //Logging out
+            sendPostRequest(tokenToJson(userToken),logoutURL);
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
