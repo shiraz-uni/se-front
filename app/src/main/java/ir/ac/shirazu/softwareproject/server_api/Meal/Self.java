@@ -1,5 +1,7 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
+import java.util.ArrayList;
+
 public class Self {
     private int selfId;
     private String selfName;

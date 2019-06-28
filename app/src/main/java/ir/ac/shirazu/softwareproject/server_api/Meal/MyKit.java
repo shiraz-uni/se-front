@@ -1,7 +1,13 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
+
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -24,10 +30,11 @@ public class MyKit {
     private static String loginURL = "http://nowaw.pythonanywhere.com/login/login";
     private static String studentInfoURL = "http://nowaw.pythonanywhere.com/login/self_data";
     private static String logoutURL = "http://nowaw.pythonanywhere.com/login/logout";
+    private static String deleteURL = "http://nowaw.pythonanywhere.com/login/delete";
     private static HttpURLConnection connection;
     private static String USER_AGENT = "Mozilla/5.0";
     private static String token;
-
+    private static String requestResult ;
     private LoginCallBack loginCallBack ;
     private ProgressDialog mDialog;
 
@@ -88,6 +95,7 @@ public class MyKit {
     private static String tokenToJson(String token) {
         return "{\"token\" : \"" + token + " \"}";
     }
+
 
 
     private static String sendPostRequest(String jsonInformation, String serverURL) throws Exception {
@@ -205,24 +213,14 @@ public class MyKit {
     }
 
     private static void fillStudentMealInfo(Student student, JSONObject coupons) {
-
         HashMap<String, JSONObject> information = parseJsonObjectToHashMap(coupons);
-
-
-        ArrayList<String> keySet = new ArrayList<>();
-
-        for (String key : information.keySet()) {
-            keySet.add(key);
-        }
-
-        for (int i = 0; i < information.size(); i++) {
-            System.out.println("KEY:" + keySet.get(i));
-            System.out.println("VALUE:" + information.get(keySet.get(i)));
-        }
-
         student.fillMealInfo(information);
     }
 
+    private static void fillSelfFoodInfo ( JSONObject foodInfo){
+        HashMap<String, JSONObject> information = parseJsonObjectToHashMap(foodInfo);
+        MealInfo.fillAvailableMeals(information);
+    }
 
     //PUBLIC
     public Student studentLogin(String userName, String password) {
@@ -245,10 +243,10 @@ public class MyKit {
             String userInformation = sendPostRequest(tokenToJson(userToken), studentInfoURL);
 
 
-
             //JSON Informations
             HashMap<String, JSONObject> list = new HashMap<>();
             totalInfoToJSONs(userInformation, list);
+
 
             //Fill Student personal Data
             fillStudentPersonalData(newStudent, list.get("student"));
@@ -256,7 +254,16 @@ public class MyKit {
 
             //Fill MealInfo
             fillStudentMealInfo(newStudent, list.get("coupons"));
+
+
+            //Fill Self FoodInfo
+            fillSelfFoodInfo(list.get("self_data"));
+
+
+            //Logging out
             sendPostRequest(tokenToJson(userToken),logoutURL);
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -316,6 +323,67 @@ public class MyKit {
         });
         thread.start();
     }
+
+
+    //Newly Added Functions :
+
+    private static String deleteInfoToJson (String couponId , String studentToken){
+
+        return "{\"coupon_id\" : " + couponId + ", \"token\" : \"" + studentToken + "\" } " ;
+    }
+
+    private void sendIONICPostRequest (JsonObject json , String serverUrl , Context context) {
+        Ion.with(context)
+                .load(serverUrl)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                       requestResult =  result.toString();
+                    }
+                });
+
+    }
+
+    public void deleteCoupon (Student student ,  int couponId , String studentToken , Context context )throws Exception{
+
+        String foodDeleteJson = deleteInfoToJson(Integer.toString(couponId),studentToken);
+        sendPostRequest(foodDeleteJson ,deleteURL );
+        /*
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("coupon_id" , Integer.toString(couponId));
+        jsonObject.addProperty("token" , studentToken);
+        sendIONICPostRequest(jsonObject , deleteURL , context);
+        */
+        MealInfo mealInfo = null;
+        for ( MealInfo meal : student.allStudentFoodInfo){
+            if ( meal.getCouponId() == couponId){
+                mealInfo = meal ;
+                break ;
+            }
+        }
+
+        if ( mealInfo != null){
+            student.allStudentFoodInfo.remove(mealInfo);
+
+
+            int foodPrice = 0 ;
+
+            if ( mealInfo.state == true){
+                foodPrice = mealInfo.getFirstFood().getFoodPrice();
+            }
+            else{
+                foodPrice = mealInfo.getSecondFood().getFoodPrice();
+            }
+
+            student.setCredit(student.getCredit() + foodPrice);
+        }
+
+    }
+
+
+
 
 }
 
