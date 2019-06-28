@@ -14,8 +14,6 @@ public class MealInfo implements Serializable {
     private int reservedFoodId;
     private Self reservedSelf;
     private MealType mealType;
-    private String key_id ;
-
     private int couponId;
     public Boolean state;
     public static ArrayList<MealInfo> allAvailableMealInfo = new ArrayList<>();
@@ -86,14 +84,6 @@ public class MealInfo implements Serializable {
 
     public MealName getMealName() {
         return mealName;
-    }
-
-    public String getKey_id() {
-        return key_id;
-    }
-
-    public void setKey_id(String key_id) {
-        this.key_id = key_id;
     }
 
     public String getMealNamePersian() {
@@ -222,7 +212,7 @@ public class MealInfo implements Serializable {
                 String foodName1 = foodInfoObject.getString("food_name1");
                 String foodName2 = foodInfoObject.getString("food_name2");
                 newMeal.setFoods(foodName1, price1, foodName2, price2);
-                newMeal.setKey_id(foodInfoObject.getString("key_id"));
+                newMeal.setCouponId(Integer.parseInt(foodInfoObject.getString("key_id")));
                 allAvailableMealInfo.add(newMeal);
             }
 
