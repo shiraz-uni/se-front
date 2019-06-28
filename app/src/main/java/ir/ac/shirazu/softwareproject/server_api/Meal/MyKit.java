@@ -348,14 +348,14 @@ public class MyKit {
 
     public void deleteCoupon (Student student ,  int couponId , String studentToken , Context context )throws Exception{
 
-        //String foodDeleteJson = deleteInfoToJson(Integer.toString(couponId),studentToken);
-        //sendPostRequest(foodDeleteJson ,deleteURL );
-
+        String foodDeleteJson = deleteInfoToJson(Integer.toString(couponId),studentToken);
+        sendPostRequest(foodDeleteJson ,deleteURL );
+        /*
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("coupon_id" , Integer.toString(couponId));
         jsonObject.addProperty("token" , studentToken);
         sendIONICPostRequest(jsonObject , deleteURL , context);
-
+        */
         MealInfo mealInfo = null;
         for ( MealInfo meal : student.allStudentFoodInfo){
             if ( meal.getCouponId() == couponId){
