@@ -257,7 +257,7 @@ public class MyKit {
             sendPostRequest(tokenToJson(userToken),logoutURL);
 
             //Fill Self FoodInfo
-            fillSelfFoodInfo(list.get("self_Data"));
+            fillSelfFoodInfo(list.get("self_data"));
 
         } catch (Exception e) {
             e.printStackTrace();
