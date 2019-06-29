@@ -32,7 +32,6 @@ public class Date {
     }
 
     public Date(int day, int month, int year) {
-        validate(day, month, year);
         this.day = day;
         this.month = month;
         this.year = year;
@@ -56,11 +55,6 @@ public class Date {
             this.month = data[1];
             this.day = data[2];
         }
-    }
-
-    private void validate(int day, int month, int year) {
-        if ((day > 31 || day < 0) || (month > 12 || month < 0))
-            new Exception("Date is out of range!", new Throwable());
     }
 
     public Date(java.util.Date date) {
@@ -130,8 +124,29 @@ public class Date {
         else return false;
     }
 
-    public static Date today() {
-        PersianDate a = new PersianDate();
-        return new Date(a.getShDay(), a.getShMonth(), a.getShYear());
+    public static Date getToday() {
+        PersianDate date = new PersianDate();
+        return new Date(date.getShDay(), date.getShMonth(), date.getShYear());
+    }
+
+    public void setToNextDay() {
+        PersianDate date = new PersianDate();
+        date.setShDay(this.day);
+        date.setShMonth(this.month);
+        date.setShYear(this.year);
+        date.addDate(0, 0, 1);
+        this.day = date.getShDay();
+    }
+
+    public static Date getFirstDayOfThisWeek() {
+        Date firstDayOfWeek = getToday();
+        PersianDate date = new PersianDate();
+
+        date.setShDay(firstDayOfWeek.getDay());
+        date.setShMonth(firstDayOfWeek.getMonth());
+        date.setShYear(firstDayOfWeek.getYear());
+        date.addDate(0, 0, -date.dayOfWeek());
+        firstDayOfWeek.setDay(date.getShDay());
+        return firstDayOfWeek;
     }
 }

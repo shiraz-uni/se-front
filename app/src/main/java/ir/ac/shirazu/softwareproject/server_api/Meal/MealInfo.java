@@ -14,9 +14,11 @@ public class MealInfo implements Serializable {
     private int reservedFoodId;
     private Self reservedSelf;
     private MealType mealType;
-    private int couponId;
+    private String couponId;
     public Boolean state;
     public static ArrayList<MealInfo> allAvailableMealInfo = new ArrayList<>();
+
+
     public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood,
                     FoodInfo secondFood, int reservedFoodId, Self reservedSelf, MealType mealType) {
         this.date = date;
@@ -78,9 +80,9 @@ public class MealInfo implements Serializable {
         return false;
     }
 
-    public FoodInfo getReservedFoodInfo() {
-        return reservedFoodId == firstFood.getFoodId() ? firstFood : secondFood;
-    }
+//    public FoodInfo getReservedFoodInfo() {
+//        return reservedFoodId == firstFood.getFoodId() ? firstFood : secondFood;
+//    }
 
     public MealName getMealName() {
         return mealName;
@@ -165,13 +167,15 @@ public class MealInfo implements Serializable {
         this.reservedSelf.setSelfId(selfId);
     }
 
-    public void setFoodId(int id) {
-        this.reservedFoodId = id;
+    public FoodInfo getReservedFoodInfo() {
+        if (reservedFoodId == 1) return firstFood;
+        else return secondFood;
     }
 
+
     public void setFoods(String firstFoodName, int firstFoodPrice, String secondFoodName, int secondFoodPrice) {
-        this.firstFood = new FoodInfo(firstFoodName,firstFoodPrice);
-        this.secondFood = new FoodInfo(secondFoodName,secondFoodPrice);
+        this.firstFood = new FoodInfo(firstFoodName, firstFoodPrice);
+        this.secondFood = new FoodInfo(secondFoodName, secondFoodPrice);
     }
 
     public void setSelf(String selfName) {
@@ -181,15 +185,15 @@ public class MealInfo implements Serializable {
     public MealInfo() {
     }
 
-    public int getCouponId() {
+    public String getCouponId() {
         return couponId;
     }
 
-    public void setCouponId(int couponId) {
+    public void setCouponId(String couponId) {
         this.couponId = couponId;
     }
 
-    public static void fillAvailableMeals(HashMap<String, JSONObject> foodData){
+    public static void fillAvailableMeals(HashMap<String, JSONObject> foodData) {
         try {
             ArrayList<String> keySet = new ArrayList<>();
 
@@ -203,16 +207,17 @@ public class MealInfo implements Serializable {
                 //fill meal date and type
                 String[] date_type = keySet.get(i).split("_");
                 newMeal.setMealName(date_type[1]);
-                newMeal.setDate(new Date(date_type[0],false));
+                newMeal.setDate(new Date(date_type[0], false));
 
                 //get meal information
                 JSONObject foodInfoObject = foodData.get(keySet.get(i));
-                int price1 = foodInfoObject.getInt("price1");
-                int price2 = foodInfoObject.getInt("price2");
-                String foodName1 = foodInfoObject.getString("food_name1");
-                String foodName2 = foodInfoObject.getString("food_name2");
-                newMeal.setFoods(foodName1, price1, foodName2, price2);
-                newMeal.setCouponId(Integer.parseInt(foodInfoObject.getString("key_id")));
+                int firstFoodPrice = foodInfoObject.getInt("price1");
+                int secondFoodPrice = foodInfoObject.getInt("price2");
+                String firstFoodName = foodInfoObject.getString("food_name1");
+                String secondFoodName = foodInfoObject.getString("food_name2");
+                newMeal.setFoods(firstFoodName, firstFoodPrice, secondFoodName, secondFoodPrice);
+                newMeal.setCouponId(foodInfoObject.getString("key_id"));
+                newMeal.setReserveState(ReserveState.NOT_RESERVED);
                 allAvailableMealInfo.add(newMeal);
             }
 

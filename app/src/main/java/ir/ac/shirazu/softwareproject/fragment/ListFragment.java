@@ -18,16 +18,16 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.ac.shirazu.softwareproject.R;
+import ir.ac.shirazu.softwareproject.recycler_view.list.ListAdapter;
 import ir.ac.shirazu.softwareproject.server_api.Meal.Date;
 import ir.ac.shirazu.softwareproject.server_api.Meal.FoodInfo;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MealName;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MealType;
-import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.server_api.Meal.ReserveState;
 import ir.ac.shirazu.softwareproject.server_api.Meal.Self;
 import ir.ac.shirazu.softwareproject.server_api.Meal.Utility;
-import ir.ac.shirazu.softwareproject.recycler_view.list.ListAdapter;
 
 public class ListFragment extends Fragment {
 
@@ -93,8 +93,8 @@ public class ListFragment extends Fragment {
                 android.R.layout.simple_spinner_item, list);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         restaurantSpinner.setAdapter(spinnerAdapter);
-
     }
+
 
     private void setDateAdapter() {
         ArrayList<String> list = new ArrayList<>();
@@ -102,6 +102,9 @@ public class ListFragment extends Fragment {
         list.add("شنبه 1398/02/03");
         // ToDo: Add dates here like as following:
         //  list.add("date")
+        for (MealInfo e  : MealInfo.allAvailableMealInfo){
+
+        }
 
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext().getApplicationContext(), android.R.layout.simple_spinner_item, list);
@@ -185,9 +188,9 @@ public class ListFragment extends Fragment {
                 else if (mealSpinner.getSelectedItem().equals("صبحانه"))  mlname = MealName.BREAKFAST;
 
 
-                FoodInfo first = new FoodInfo(firstFood.getText()+"",1200,1); ///Handle food  price and  food Id
+                FoodInfo first = new FoodInfo(firstFood.getText()+"",1200); ///Handle food  price and  food Id
 
-                FoodInfo second = new FoodInfo(secondFood.getText()+"",1300,2); //also as above
+                FoodInfo second = new FoodInfo(secondFood.getText()+"",1300); //also as above
 
 
                 Self resturant = new Self(1,restaurantSpinner.getSelectedItem()+"");
@@ -215,15 +218,6 @@ public class ListFragment extends Fragment {
                 dateSpinner.setSelection(0);
                 mealSpinner.setSelection(0);
                 buyMealButton.setVisibility(View.GONE);
-
-
-
-
-
-
-
-
-
 
             }
         });
@@ -268,13 +262,13 @@ public class ListFragment extends Fragment {
 
     public static void prepareData() {
 
-        datalist.add(new MealInfo(new Date(3,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("کوفت",1200,1),new FoodInfo("زهرمار",1300,2),1,new Self(2, "غذاخوري دانشكده مهندسي نفت و گاز"), MealType.NORMAL));
+        datalist.add(new MealInfo(new Date(3,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("کوفت",1200),new FoodInfo("زهرمار",1300),1,new Self(2, "غذاخوري دانشكده مهندسي نفت و گاز"), MealType.NORMAL));
 
 
-        datalist.add(new MealInfo(new Date(2,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("زهرمار",1200,1),new FoodInfo("فاک پلو",1300,2),2,new Self(12, "سلف ارم"), MealType.NORMAL));
+        datalist.add(new MealInfo(new Date(2,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("زهرمار",1200),new FoodInfo("فاک پلو",1300),2,new Self(12, "سلف ارم"), MealType.NORMAL));
 
 
-        datalist.add(new MealInfo(new Date(5,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("کوفت",1200,1),new FoodInfo("زهرمار",1300,2),2,new Self(12,"دانشکده معماری"), MealType.NORMAL));
+        datalist.add(new MealInfo(new Date(5,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("کوفت",1200),new FoodInfo("زهرمار",1300),2,new Self(12,"دانشکده معماری"), MealType.NORMAL));
 
 
 

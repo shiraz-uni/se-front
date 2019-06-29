@@ -28,6 +28,8 @@ public class EditDialogFragment extends DialogFragment {
     private static final String ARG_FOOD_INFORMATION = "day_info";
     private static final String ARG_CLICKED_ITEM_ROW = "clicked_item_row";
     private static final String ARG_STATE_CHANGED_LISTENER = "state_changed_listener";
+    private static final int FIRST_FOOD_ID = 1;
+    private static final int SECOND_FOOD_ID = 2;
     private Utility mUtility;
 
     private MealInfo mMealInfo;
@@ -154,7 +156,7 @@ public class EditDialogFragment extends DialogFragment {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     int nowReservedFoodId = foodRadioGroup.getCheckedRadioButtonId()
                             == firstFoodRadioButton.getId() ? mMealInfo.getReservedFoodId()
-                            : mMealInfo.getSecondFood().getFoodId();
+                            : SECOND_FOOD_ID;
 
                     boolean isReservedFoodChanged = false;
                     if (mMealInfo.getReserveState() == ReserveState.NOT_RESERVED
@@ -203,7 +205,7 @@ public class EditDialogFragment extends DialogFragment {
                         != mMealInfo.getReservedSelf().getSelfId();
                 if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED)
 
-                    if (mMealInfo.getReservedFoodId() == mMealInfo.getSecondFood().getFoodId()
+                    if (mMealInfo.getReservedFoodId() == SECOND_FOOD_ID
                             || isReservedSelfChanged) {
                         deleteButton.setVisibility(View.INVISIBLE);
                         submitButtonsContainer.setVisibility(View.VISIBLE);
@@ -227,7 +229,7 @@ public class EditDialogFragment extends DialogFragment {
                         != mMealInfo.getReservedSelf().getSelfId();
 
                 if (mMealInfo.getReserveState() != ReserveState.NOT_RESERVED)
-                    if (mMealInfo.getReservedFoodId() == mMealInfo.getFirstFood().getFoodId()
+                    if (mMealInfo.getReservedFoodId() == FIRST_FOOD_ID
                             || isReservedSelfChanged) {
                         deleteButton.setVisibility(View.INVISIBLE);
                         submitButtonsContainer.setVisibility(View.VISIBLE);
@@ -274,8 +276,8 @@ public class EditDialogFragment extends DialogFragment {
                     case EDITABLE_RESERVED:
                         // Modify operation
                         int newReservedFoodId = mMealInfo.getReservedFoodId()
-                                == mMealInfo.getFirstFood().getFoodId() ? mMealInfo.getFirstFood().getFoodId()
-                                : mMealInfo.getSecondFood().getFoodId();
+                                == FIRST_FOOD_ID ? FIRST_FOOD_ID
+                                : SECOND_FOOD_ID;
                         mMealInfo.setReservedFoodId(newReservedFoodId);
                         // ToDo: implement a method to get self name from a self id
                         mMealInfo.setReservedSelf(mUtility.getSelf(restaurantSpinner.getSelectedItemPosition()));
@@ -285,9 +287,9 @@ public class EditDialogFragment extends DialogFragment {
                         // Buy operation
                         int reservedFoodId;
                         if (foodRadioGroup.getCheckedRadioButtonId() == firstFoodRadioButton.getId())
-                            reservedFoodId = mMealInfo.getFirstFood().getFoodId();
+                            reservedFoodId = FIRST_FOOD_ID;
                         else
-                            reservedFoodId = mMealInfo.getSecondFood().getFoodId();
+                            reservedFoodId = SECOND_FOOD_ID;
                         mMealInfo.setReserveState(ReserveState.EDITABLE_RESERVED);
                         mMealInfo.setReservedSelf(mUtility.getSelf(restaurantSpinner.getSelectedItemPosition()));
                         mMealInfo.setReservedFoodId(reservedFoodId);
@@ -335,7 +337,7 @@ public class EditDialogFragment extends DialogFragment {
             case NON_EDITABLE_RESERVED:
                 setReservedData();
                 restaurantSpinner.setEnabled(false);
-                if (mMealInfo.getReservedFoodId() == mMealInfo.getFirstFood().getFoodId()) {
+                if (mMealInfo.getReservedFoodId() == FIRST_FOOD_ID) {
                     firstFoodRadioButton.setClickable(false);
                     secondFoodRadioButton.setEnabled(false);
 
@@ -359,7 +361,7 @@ public class EditDialogFragment extends DialogFragment {
     }
 
     private void setReservedData() {
-        if (mMealInfo.getReservedFoodId() == mMealInfo.getFirstFood().getFoodId())
+        if (mMealInfo.getReservedFoodId() == FIRST_FOOD_ID)
             firstFoodRadioButton.setChecked(true);
         else
             secondFoodRadioButton.setChecked(true);
