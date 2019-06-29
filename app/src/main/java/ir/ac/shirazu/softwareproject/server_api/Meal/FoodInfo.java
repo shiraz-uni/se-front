@@ -4,15 +4,10 @@ public class FoodInfo {
     private String foodName;
     private int foodPrice;
 
-
-    public FoodInfo(String foodName, int foodPrice, String foodId) {
+    public FoodInfo(String foodName, int foodPrice) {
         this.foodName = foodName;
         this.foodPrice = foodPrice;
 
-    }
-
-    public FoodInfo(String foodName, int foodPrice) {
-        this(foodName, foodPrice, null);
     }
 
     public String getFoodName() {
@@ -30,10 +25,6 @@ public class FoodInfo {
     public void setFoodPrice(int foodPrice) {
         this.foodPrice = foodPrice;
     }
-
-
-
-
 
     @Override
     public String toString() {

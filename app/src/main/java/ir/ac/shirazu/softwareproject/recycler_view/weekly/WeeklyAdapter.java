@@ -17,18 +17,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
-import ir.ac.shirazu.softwareproject.server_api.Meal.MealName;
 import ir.ac.shirazu.softwareproject.R;
-import ir.ac.shirazu.softwareproject.server_api.Meal.ReserveState;
 import ir.ac.shirazu.softwareproject.activity.MainActivity;
 import ir.ac.shirazu.softwareproject.fragment.EditDialogFragment;
+import ir.ac.shirazu.softwareproject.server_api.Meal.Date;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealName;
+import ir.ac.shirazu.softwareproject.server_api.Meal.ReserveState;
 
 public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
     private final Context mContext;
     private ArrayList<WeeklyItem> itemsInfo;
     private FragmentManager mFragmentManager;
+    private Date date;
 
     public interface DialogFragmentCallBack extends Serializable {
         public void changeUi(int clickedItemRow, MealName mealName);
@@ -37,6 +38,7 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
     public WeeklyAdapter(List<WeeklyItem> weeklyItems, Context context, FragmentManager fragmentManager) {
         itemsInfo = (ArrayList<WeeklyItem>) weeklyItems;
         this.mContext = context;
+        this.date = Date.getToday();
         mFragmentManager = fragmentManager;
     }
 
@@ -50,9 +52,11 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull WeeklyViewHolder weeklyViewHolder, int i) {
-        weeklyViewHolder.dayTV.setText(itemsInfo.get(i).getBreakfastInfo().getDate().getDayOfWeek());
-        weeklyViewHolder.dateTV.setText(itemsInfo.get(i).getBreakfastInfo().getDate().getDateInString());
+        if (i != 0)
+            date.setToNextDay();
 
+        weeklyViewHolder.dayTV.setText(date.getDayOfWeek());
+        weeklyViewHolder.dateTV.setText(date.getDateInString());
 
         // ToDo: pass the reserved food information here.
         setEachMeal(weeklyViewHolder, i);
@@ -65,7 +69,9 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
     }
 
     private void setClickListener(final MealInfo mealInfo, final View layoutToClick, final int index) {
-        if (mealInfo.getReserveState() == ReserveState.UNPLANNED) {
+        if (mealInfo == null) {
+            layoutToClick.setClickable(false);
+        } else if (mealInfo.getReserveState() == ReserveState.UNPLANNED) {
             layoutToClick.setClickable(false);
         } else {
             layoutToClick.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +109,7 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
                         dialogFragment.show(mFragmentManager, null);
                     } else {
                         notifyDataSetChanged();
-                        Toast.makeText(mContext.getApplicationContext(), "مهلت رزرو تمام شد", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext.getApplicationContext(), "مهلت رزرو تمام شده", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -131,15 +137,8 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
     }
 
     private void setEachMeal(WeeklyViewHolder weeklyViewHolder, int index) {
-//        String[] temp = breakfast.split(" ");
-//        breakfast = temp[0].concat(" ").concat(temp[1]);
-//        temp = dinner.split(" ");
-//        dinner = temp[0].concat(" ").concat(temp[1]);
-//        temp = lunch.split(" ");
-//        lunch = temp[0].concat(" ").concat(temp[1]);
 
         if (MainActivity.isInDormitory()) {
-
             MealInfo mealInfo = itemsInfo.get(index).getBreakfastInfo();
             setTextAndBackgroundColor(weeklyViewHolder.breakfastTV, weeklyViewHolder.breakfastLayout, mealInfo);
             mealInfo = itemsInfo.get(index).getLunchInfo();
@@ -163,24 +162,29 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
             mealInfo) {
         Drawable background = layout.getBackground();
         GradientDrawable drawable = (GradientDrawable) background;
-        switch (mealInfo.getReserveState()) {
+        if (mealInfo == null) {
+            textView.setText(mContext.getString(R.string.unplanned));
+            setBackgroundColor(drawable, R.color.colorSecondaryDarker);
+        } else {
+            switch (mealInfo.getReserveState()) {
 
-            case UNPLANNED:
-                textView.setText(mContext.getString(R.string.unplanned));
-                setBackgroundColor(drawable, R.color.colorSecondaryDarker);
-                break;
-            case NON_EDITABLE_RESERVED:
-            case EDITABLE_RESERVED:
-                String foodName = mealInfo.getReservedFoodInfo().getFoodName();
-                textView.setText(foodName);
-                setBackgroundColor(drawable, R.color.colorAccent);
-                break;
-            case NOT_RESERVED:
-                textView.setText(mContext.getString(R.string.card_buying));
-                setBackgroundColor(drawable, R.color.colorAccentLight);
-                break;
-            default:
-                break;
+                case UNPLANNED:
+                    textView.setText(mContext.getString(R.string.unplanned));
+                    setBackgroundColor(drawable, R.color.colorSecondaryDarker);
+                    break;
+                case NON_EDITABLE_RESERVED:
+                case EDITABLE_RESERVED:
+                    String foodName = mealInfo.getReservedFoodInfo().getFoodName();
+                    textView.setText(foodName);
+                    setBackgroundColor(drawable, R.color.colorAccent);
+                    break;
+                case NOT_RESERVED:
+                    textView.setText(mContext.getString(R.string.card_buying));
+                    setBackgroundColor(drawable, R.color.colorAccentLight);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

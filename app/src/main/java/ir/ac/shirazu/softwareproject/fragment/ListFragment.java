@@ -18,17 +18,16 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.ac.shirazu.softwareproject.R;
+import ir.ac.shirazu.softwareproject.recycler_view.list.ListAdapter;
 import ir.ac.shirazu.softwareproject.server_api.Meal.Date;
 import ir.ac.shirazu.softwareproject.server_api.Meal.FoodInfo;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MealName;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MealType;
-import ir.ac.shirazu.softwareproject.R;
-import ir.ac.shirazu.softwareproject.server_api.Meal.MyKit;
 import ir.ac.shirazu.softwareproject.server_api.Meal.ReserveState;
 import ir.ac.shirazu.softwareproject.server_api.Meal.Self;
 import ir.ac.shirazu.softwareproject.server_api.Meal.Utility;
-import ir.ac.shirazu.softwareproject.recycler_view.list.ListAdapter;
 
 public class ListFragment extends Fragment {
 
@@ -189,9 +188,9 @@ public class ListFragment extends Fragment {
                 else if (mealSpinner.getSelectedItem().equals("صبحانه"))  mlname = MealName.BREAKFAST;
 
 
-                FoodInfo first = new FoodInfo(firstFood.getText()+"",1200,"1"); ///Handle food  price and  food Id
+                FoodInfo first = new FoodInfo(firstFood.getText()+"",1200); ///Handle food  price and  food Id
 
-                FoodInfo second = new FoodInfo(secondFood.getText()+"",1300,"2"); //also as above
+                FoodInfo second = new FoodInfo(secondFood.getText()+"",1300); //also as above
 
 
                 Self resturant = new Self(1,restaurantSpinner.getSelectedItem()+"");
@@ -263,7 +262,7 @@ public class ListFragment extends Fragment {
 
     public static void prepareData() {
 
-        datalist.add(new MealInfo(new Date(3,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("کوفت",1200),new FoodInfo("زهرمار",1300,"2"),1,new Self(2, "غذاخوري دانشكده مهندسي نفت و گاز"), MealType.NORMAL));
+        datalist.add(new MealInfo(new Date(3,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("کوفت",1200),new FoodInfo("زهرمار",1300),1,new Self(2, "غذاخوري دانشكده مهندسي نفت و گاز"), MealType.NORMAL));
 
 
         datalist.add(new MealInfo(new Date(2,2,1398), MealName.BREAKFAST, ReserveState.EDITABLE_RESERVED,new FoodInfo("زهرمار",1200),new FoodInfo("فاک پلو",1300),2,new Self(12, "سلف ارم"), MealType.NORMAL));

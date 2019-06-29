@@ -8,7 +8,6 @@ public class WeeklyItem {
     private MealInfo lunchInfo;
     private MealInfo dinnerInfo;
 
-
     public WeeklyItem(MealInfo breakfastInfo,
                       MealInfo lunchInfo,
                       MealInfo dinnerInfo) {

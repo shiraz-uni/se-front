@@ -16,8 +16,6 @@ import android.widget.Toast;
 import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MyKit;
-import ir.ac.shirazu.softwareproject.server_api.Meal.Student;
-
 
 public class LoginActivity extends AppCompatActivity implements LoginCallBack{
 
@@ -63,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallBack{
         else {
 
 
-            MyKit myKit = new MyKit();
+            MyKit myKit = new MyKit(getApplicationContext());
             myKit.setLoginCallBack(this);
             myKit.doLogin(username, password);
 

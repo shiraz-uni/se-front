@@ -1,6 +1,5 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -10,6 +9,7 @@ import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
@@ -23,10 +23,9 @@ import java.util.Iterator;
 
 import ir.ac.shirazu.softwareproject.activity.LoginActivity;
 import ir.ac.shirazu.softwareproject.activity.LoginCallBack;
-import ir.ac.shirazu.softwareproject.activity.MainActivity;
 
 public class MyKit {
-    public static Student student ;
+    public static Student student;
     private static String loginURL = "http://nowaw.pythonanywhere.com/login/login";
     private static String studentInfoURL = "http://nowaw.pythonanywhere.com/login/self_data";
     private static String logoutURL = "http://nowaw.pythonanywhere.com/login/logout";
@@ -34,16 +33,18 @@ public class MyKit {
     private static HttpURLConnection connection;
     private static String USER_AGENT = "Mozilla/5.0";
     private static String token;
-    private static String requestResult ;
-    private LoginCallBack loginCallBack ;
+    private static String requestResult;
+    private LoginCallBack loginCallBack;
+    private Context context;
 
-
+    public MyKit(Context context) {
+        this.context = context;
+    }
 
     public void setLoginCallBack(LoginActivity loginCallBack) {
         this.loginCallBack = loginCallBack;
 
     }
-
 
 
     //PRIVATE
@@ -97,7 +98,6 @@ public class MyKit {
     }
 
 
-
     private static String sendPostRequest(String jsonInformation, String serverURL) throws Exception {
 
         String url = serverURL;
@@ -110,7 +110,7 @@ public class MyKit {
         String urlParameters = jsonInformation;
         // Send post request
         con.setDoOutput(true);
-     //   Thread.sleep(300);
+        //   Thread.sleep(300);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
         //Thread.sleep(300);
         wr.writeBytes(urlParameters);
@@ -126,7 +126,7 @@ public class MyKit {
 
         InputStreamReader inputStreamReader = new InputStreamReader(input);
         BufferedReader in = new BufferedReader(inputStreamReader);
-        String inputLine = "" ;
+        String inputLine = "";
         StringBuffer response = new StringBuffer();
 
         while ((inputLine = in.readLine()) != null) {
@@ -136,15 +136,13 @@ public class MyKit {
 
         String a = response.toString();
 
-        Log.d("responseeee",a);
+        Log.d("responseeee", a);
 
-        if ( response.toString().contains("Wrong credentials")) {
+        if (response.toString().contains("Wrong credentials")) {
             return null;
-        }
-        else {
+        } else {
             return response.toString();
         }
-
 
 
     }
@@ -173,7 +171,7 @@ public class MyKit {
             student.setFirstName(jsonObject.getString("first_name"));
             student.setLastName(jsonObject.getString("last_name"));
             student.setStudentNumber(jsonObject.getString("student_no"));
-            student.setSudentType(jsonObject.getString("student_type"));
+            student.setStudentType(jsonObject.getString("student_type"));
             student.setCredit(jsonObject.getInt("credit"));
         } catch (Exception e) {
 
@@ -217,14 +215,14 @@ public class MyKit {
         student.fillMealInfo(information);
     }
 
-    private static void fillSelfFoodInfo ( JSONObject foodInfo){
+    private static void fillSelfFoodInfo(JSONObject foodInfo) {
         HashMap<String, JSONObject> information = parseJsonObjectToHashMap(foodInfo);
         MealInfo.fillAvailableMeals(information);
     }
 
     //PUBLIC
     public Student studentLogin(String userName, String password) {
-        Student newStudent = new Student();
+        Student newStudent = new Student(context);
 
 
         try {
@@ -261,18 +259,16 @@ public class MyKit {
 
 
             //Logging out
-            sendPostRequest(tokenToJson(userToken),logoutURL);
-
+            sendPostRequest(tokenToJson(userToken), logoutURL);
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null ;
+            return null;
         }
 
         return newStudent;
     }
-
 
 
     protected String logout(String prams[]) {  /////////////This function was former Ondoingbackground()
@@ -311,7 +307,7 @@ public class MyKit {
             @Override
             public void run() {
                 try {
-                   loginCallBack.onPreExecute();
+                    loginCallBack.onPreExecute();
                     MyKit.student = studentLogin(user, pass);
                     loginCallBack.onPostExecute();
 
@@ -327,12 +323,8 @@ public class MyKit {
 
     //Newly Added Functions :
 
-    private static String deleteInfoToJson (String couponId , String studentToken){
 
-        return "{\"coupon_id\" : " + couponId + ", \"token\" : \"" + studentToken + "\" } " ;
-    }
-
-    private void sendIONICPostRequest (JsonObject json , String serverUrl , Context context) {
+    private void sendIONICPostRequest(JsonObject json, String serverUrl, Context context) {
         Ion.with(context)
                 .load(serverUrl)
                 .asJsonObject()
@@ -340,16 +332,16 @@ public class MyKit {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
-                       requestResult =  result.toString();
+                        requestResult = result.toString();
                     }
                 });
 
     }
 
-    public void deleteCoupon (Student student ,  String couponId , String studentToken , Context context )throws Exception{
+    public void deleteCoupon(Student student, String couponId, String studentToken, Context context) throws Exception {
 
-        String foodDeleteJson = deleteInfoToJson(couponId,studentToken);
-        sendPostRequest(foodDeleteJson ,deleteURL );
+        String foodDeleteJson = deleteInfoToJson(couponId, studentToken);
+        sendPostRequest(foodDeleteJson, deleteURL);
         /*
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("coupon_id" , Integer.toString(couponId));
@@ -357,23 +349,22 @@ public class MyKit {
         sendIONICPostRequest(jsonObject , deleteURL , context);
         */
         MealInfo mealInfo = null;
-        for ( MealInfo meal : student.allStudentFoodInfo){
-            if ( meal.getCouponId() == couponId){
-                mealInfo = meal ;
-                break ;
+        for (MealInfo meal : student.allStudentFoodInfo) {
+            if (meal.getCouponId() == couponId) {
+                mealInfo = meal;
+                break;
             }
         }
 
-        if ( mealInfo != null){
+        if (mealInfo != null) {
             student.allStudentFoodInfo.remove(mealInfo);
 
 
-            int foodPrice = 0 ;
+            int foodPrice = 0;
 
-            if ( mealInfo.state == true){
+            if (mealInfo.state == true) {
                 foodPrice = mealInfo.getFirstFood().getFoodPrice();
-            }
-            else{
+            } else {
                 foodPrice = mealInfo.getSecondFood().getFoodPrice();
             }
 
@@ -382,6 +373,10 @@ public class MyKit {
 
     }
 
+    public static String deleteInfoToJson(String couponId, String studentToken) {
+
+        return "{\"coupon_id\" :\"" + couponId + "\", \"token\" : \"" + studentToken + "\" } ";
+    }
 
 
 
