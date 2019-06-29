@@ -36,7 +36,7 @@ public class MyKit {
     private static String token;
     private static String requestResult ;
     private LoginCallBack loginCallBack ;
-    private ProgressDialog mDialog;
+
 
 
     public void setLoginCallBack(LoginActivity loginCallBack) {
@@ -346,9 +346,9 @@ public class MyKit {
 
     }
 
-    public void deleteCoupon (Student student ,  int couponId , String studentToken , Context context )throws Exception{
+    public void deleteCoupon (Student student ,  String couponId , String studentToken , Context context )throws Exception{
 
-        String foodDeleteJson = deleteInfoToJson(Integer.toString(couponId),studentToken);
+        String foodDeleteJson = deleteInfoToJson(couponId,studentToken);
         sendPostRequest(foodDeleteJson ,deleteURL );
         /*
         JsonObject jsonObject = new JsonObject();

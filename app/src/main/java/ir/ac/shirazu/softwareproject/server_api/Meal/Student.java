@@ -42,9 +42,13 @@ public class Student {
                 newMeal.setFoods(foodName1, price1, foodName2, price2);
 
 
-                newMeal.setCouponId(foodInfoObject.getInt("coupon_id"));
+                newMeal.setCouponId(foodInfoObject.getString("coupon_id"));
                 newMeal.state = foodInfoObject.getBoolean("state");
-                newMeal.setReservedFoodId(foodInfoObject.getInt("food_id"));
+                if  ( newMeal.state == true ){
+                    newMeal.setReservedFoodId(1);
+                }
+                else newMeal.setReservedFoodId(2);
+                //newMeal.setReservedFoodId(foodInfoObject.getString("food_id"));
                 newMeal.setSelfData(foodInfoObject.getString("self_name"), 0);
 
                 this.allStudentFoodInfo.add(newMeal);

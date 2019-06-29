@@ -14,9 +14,11 @@ public class MealInfo implements Serializable {
     private int reservedFoodId;
     private Self reservedSelf;
     private MealType mealType;
-    private int couponId;
+    private String couponId;
     public Boolean state;
     public static ArrayList<MealInfo> allAvailableMealInfo = new ArrayList<>();
+
+
     public MealInfo(Date date, MealName mealName, ReserveState reserveState, FoodInfo firstFood,
                     FoodInfo secondFood, int reservedFoodId, Self reservedSelf, MealType mealType) {
         this.date = date;
@@ -78,9 +80,9 @@ public class MealInfo implements Serializable {
         return false;
     }
 
-    public FoodInfo getReservedFoodInfo() {
-        return reservedFoodId == firstFood.getFoodId() ? firstFood : secondFood;
-    }
+//    public FoodInfo getReservedFoodInfo() {
+//        return reservedFoodId == firstFood.getFoodId() ? firstFood : secondFood;
+//    }
 
     public MealName getMealName() {
         return mealName;
@@ -165,9 +167,12 @@ public class MealInfo implements Serializable {
         this.reservedSelf.setSelfId(selfId);
     }
 
-    public void setFoodId(int id) {
-        this.reservedFoodId = id;
+    public FoodInfo getReservedFoodInfo() {
+        if  (reservedFoodId  == 1 ) return firstFood ;
+        else return secondFood;
     }
+
+
 
     public void setFoods(String firstFoodName, int firstFoodPrice, String secondFoodName, int secondFoodPrice) {
         this.firstFood = new FoodInfo(firstFoodName,firstFoodPrice);
@@ -181,11 +186,11 @@ public class MealInfo implements Serializable {
     public MealInfo() {
     }
 
-    public int getCouponId() {
+    public String getCouponId() {
         return couponId;
     }
 
-    public void setCouponId(int couponId) {
+    public void setCouponId(String couponId) {
         this.couponId = couponId;
     }
 
@@ -212,7 +217,7 @@ public class MealInfo implements Serializable {
                 String foodName1 = foodInfoObject.getString("food_name1");
                 String foodName2 = foodInfoObject.getString("food_name2");
                 newMeal.setFoods(foodName1, price1, foodName2, price2);
-                newMeal.setCouponId(Integer.parseInt(foodInfoObject.getString("key_id")));
+                newMeal.setCouponId(foodInfoObject.getString("key_id"));
                 allAvailableMealInfo.add(newMeal);
             }
 

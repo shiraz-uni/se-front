@@ -3,16 +3,16 @@ package ir.ac.shirazu.softwareproject.server_api.Meal;
 public class FoodInfo {
     private String foodName;
     private int foodPrice;
-    private int foodId;
 
-    public FoodInfo(String foodName, int foodPrice, int foodId) {
+
+    public FoodInfo(String foodName, int foodPrice, String foodId) {
         this.foodName = foodName;
         this.foodPrice = foodPrice;
-        this.foodId = foodId;
+
     }
 
     public FoodInfo(String foodName, int foodPrice) {
-        this(foodName, foodPrice, -1);
+        this(foodName, foodPrice, null);
     }
 
     public String getFoodName() {
@@ -31,13 +31,9 @@ public class FoodInfo {
         this.foodPrice = foodPrice;
     }
 
-    public int getFoodId() {
-        return foodId;
-    }
 
-    public void setFoodId(int foodId) {
-        this.foodId = foodId;
-    }
+
+
 
     @Override
     public String toString() {
