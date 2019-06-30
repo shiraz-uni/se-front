@@ -1,5 +1,7 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
+import java.util.List;
+
 import saman.zamani.persiandate.PersianDate;
 
 public class Date {
@@ -41,7 +43,7 @@ public class Date {
         PersianDate p = new PersianDate();
         if (isForSpinner) {
             String[] a = date.split(" ");
-            a = a[1].split("/");
+            a = a[0].split("/");
             this.year = Integer.valueOf(a[0]);
             this.month = Integer.valueOf(a[1]);
             this.day = Integer.valueOf(a[2]);
@@ -64,24 +66,6 @@ public class Date {
     private void convertDateToJalali(java.util.Date date) {
 
     }
-
-//
-//    private static String setDayOfWeek() {
-//        String[] day =
-//                new String[]{
-//                        "شنبه",
-//                        "یکشنبه",
-//                        "دوشنبه",
-//                        "سه شنبه",
-//                        "چهارشنبه",
-//                        "پنجشنبه",
-//                        "جمعه"};
-//        // ToDo: Add a persian calendar library to
-//        //  fill data of dayOfWeek property
-//        // Use third-party library here to calculate the day of year in integer
-//        int dayNum = 0; // شنبه
-//        return day[dayNum];
-//    }
 
     public String getDayOfWeek() {
         PersianDate tmp = new PersianDate();
@@ -118,9 +102,15 @@ public class Date {
 
     public boolean compare(String s) {
 
-        String str[] = s.split(" ");
+        // String str[] = s.split(" ");
 
-        if (str[1].equals(this.getDateInString())) return true;
+        if (s.equals(this.toString())) return true;
+        else return false;
+    }
+
+    public boolean compare(Date date) {
+        if (this.getDay() == date.getDay() && this.getMonth() == date.getMonth() && this.getYear() == date.getYear())
+            return true;
         else return false;
     }
 
@@ -148,5 +138,16 @@ public class Date {
         date.addDate(0, 0, -date.dayOfWeek());
         firstDayOfWeek.setDay(date.getShDay());
         return firstDayOfWeek;
+    }
+
+    @Override
+    public String toString() {
+
+        return this.getDateInString() + " " + this.getDayOfWeek();
+    }
+
+    public List<String> sortByDayOfWeek(List<String> a) {
+
+        return null;
     }
 }
