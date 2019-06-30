@@ -1,6 +1,5 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
-
 import android.content.Context;
 
 import org.json.JSONObject;
@@ -16,9 +15,10 @@ public class Student {
     private int id;
     private String studentType;
     private Context context;
-    private static Self self;
+    private Self self;
 
     public ArrayList<MealInfo> allStudentFoodInfo = new ArrayList<>();
+
 
     public Student(Context context) {
         this.context = context;
@@ -84,7 +84,6 @@ public class Student {
     public void setAllStudentFoodInfo(ArrayList<MealInfo> allStudentFoodInfo) {
         this.allStudentFoodInfo = allStudentFoodInfo;
     }
-
 
     public String getFirstName() {
         return firstName;

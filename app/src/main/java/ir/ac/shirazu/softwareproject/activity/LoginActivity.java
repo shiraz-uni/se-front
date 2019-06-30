@@ -17,7 +17,7 @@ import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MyKit;
 
-public class LoginActivity extends AppCompatActivity implements LoginCallBack{
+public class LoginActivity extends AppCompatActivity implements LoginCallBack {
 
     private EditText usernameET, passwordET;
     public ProgressDialog progressDialog;
@@ -28,8 +28,6 @@ public class LoginActivity extends AppCompatActivity implements LoginCallBack{
         setContentView(R.layout.activity_login);
         usernameET = findViewById(R.id.username);
         passwordET = findViewById(R.id.password);
-
-
 
         if (android.os.Build.VERSION.SDK_INT > 9)  ////These loop is for network security
         {
@@ -46,19 +44,18 @@ public class LoginActivity extends AppCompatActivity implements LoginCallBack{
         String username = usernameET.getText().toString();
         String password = passwordET.getText().toString();
 
-        if (username.isEmpty() || password.isEmpty() ){
-            Toast.makeText(this,"شماره دانشجویی یا پسوورد خود را وارد کنید.",Toast.LENGTH_LONG).show();
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "شماره دانشجویی یا پسوورد خود را وارد کنید.", Toast.LENGTH_LONG).show();
             return;
         }
 
 
-        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if(!(netInfo != null && netInfo.isConnectedOrConnecting())) {
-            Toast.makeText(this,"به اینترنت متصل شوید.",Toast.LENGTH_LONG).show();
-            Log.d("nett",!(netInfo != null && netInfo.isConnectedOrConnecting())+"");
-        }
-        else {
+        if (!(netInfo != null && netInfo.isConnectedOrConnecting())) {
+            Toast.makeText(this, "به اینترنت متصل شوید.", Toast.LENGTH_LONG).show();
+            Log.d("nett", !(netInfo != null && netInfo.isConnectedOrConnecting()) + "");
+        } else {
 
 
             MyKit myKit = new MyKit(getApplicationContext());
@@ -69,7 +66,6 @@ public class LoginActivity extends AppCompatActivity implements LoginCallBack{
 
 
     }
-
 
 
     public void startProgressDialog() {
@@ -86,10 +82,9 @@ public class LoginActivity extends AppCompatActivity implements LoginCallBack{
 
     }
 
-    public void makeFailToaste(){
-        Toast.makeText(this,R.string.not_verified,Toast.LENGTH_LONG).show();
+    public void makeFailToaste() {
+        Toast.makeText(this, R.string.not_verified, Toast.LENGTH_LONG).show();
     }
-
 
 
     @Override
@@ -109,17 +104,16 @@ public class LoginActivity extends AppCompatActivity implements LoginCallBack{
             @Override
             public void run() {
 
-                if(MyKit.student == null) {
+                if (MyKit.student == null) {
                     finishProgressDialog();
                     makeFailToaste();
-                }
-                else {
+                } else {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                     finishProgressDialog();
-                    Log.d("tokentoken",MyKit.student.getUser_token());
-                   int a =  MealInfo.allAvailableMealInfo.size();
+                    Log.d("tokentoken", MyKit.student.getUser_token());
+                    int a = MealInfo.allAvailableMealInfo.size();
                 }
             }
         });

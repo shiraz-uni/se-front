@@ -16,10 +16,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ir.ac.shirazu.softwareproject.R;
 import ir.ac.shirazu.softwareproject.fragment.ListFragment;
 import ir.ac.shirazu.softwareproject.fragment.WeeklyFragment;
+import ir.ac.shirazu.softwareproject.server_api.Meal.MealInfo;
 import ir.ac.shirazu.softwareproject.server_api.Meal.MyKit;
+import ir.ac.shirazu.softwareproject.server_api.Meal.Student;
 
 public class MainActivity extends AppCompatActivity {
     private static final int WEEKLY_INDEX = 0;
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private ImageView creditIncreasingBtn;
+    public static int creditValue;
 
     public static boolean isInDormitory() {
         return isInDormitory;
@@ -95,6 +100,19 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.credits_report:
                         break;
                     case R.id.exit:
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    MyKit.sendPostRequest(MyKit.tokenToJson(MyKit.student.getUser_token()),MyKit.logoutURL);
+                                } catch (Exception e) {
+
+                                }
+
+                            }
+                        });
+                        thread.start();
+
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
@@ -105,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showCredit() {
+    public void showCredit() {
         Resources res = getResources();
-        int creditValue = 7000;
+        creditValue = MyKit.student.getCredit();
         String text = res.getString(R.string.credit, creditValue);
         TextView textView = findViewById(R.id.credit);
         textView.setText(text);
@@ -159,5 +177,22 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MyKit.sendPostRequest(MyKit.tokenToJson(MyKit.student.getUser_token()),MyKit.logoutURL);
+                } catch (Exception e) {
+
+                }
+
+            }
+        });
+        thread.start();
     }
 }
