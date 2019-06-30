@@ -1,5 +1,7 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
+import java.util.List;
+
 import saman.zamani.persiandate.PersianDate;
 
 public class Date {
@@ -32,6 +34,7 @@ public class Date {
     }
 
     public Date(int day, int month, int year) {
+
         validate(day, month, year);
         this.day = day;
         this.month = month;
@@ -42,7 +45,7 @@ public class Date {
         PersianDate p = new PersianDate();
         if (isForSpinner) {
             String[] a = date.split(" ");
-            a = a[1].split("/");
+            a = a[0].split("/");
             this.year = Integer.valueOf(a[0]);
             this.month = Integer.valueOf(a[1]);
             this.day = Integer.valueOf(a[2]);
@@ -124,14 +127,30 @@ public class Date {
 
     public boolean compare(String s) {
 
-        String str[] = s.split(" ");
+       // String str[] = s.split(" ");
 
-        if (str[1].equals(this.getDateInString())) return true;
+        if (s.equals(this.toString())) return true;
+        else return false;
+    }
+    public boolean compare(Date date){
+        if (this.getDay() == date.getDay() && this.getMonth() == date.getMonth() && this.getYear() == date.getYear()) return true;
         else return false;
     }
 
     public static Date today() {
         PersianDate a = new PersianDate();
         return new Date(a.getShDay(), a.getShMonth(), a.getShYear());
+    }
+
+
+    @Override
+    public String toString() {
+
+        return  this.getDateInString() +" "+  this.getDayOfWeek();
+    }
+
+    public List<String>  sortByDayOfWeek(List <String> a){
+
+        return null;
     }
 }

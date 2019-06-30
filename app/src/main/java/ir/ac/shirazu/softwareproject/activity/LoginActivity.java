@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallBack{
 
 
 
+
         if (android.os.Build.VERSION.SDK_INT > 9)  ////These loop is for network security
         {
             StrictMode.ThreadPolicy policy = new
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallBack{
         else {
 
 
-            MyKit myKit = new MyKit();
+            MyKit myKit = new MyKit(getApplicationContext());
             myKit.setLoginCallBack(this);
             myKit.doLogin(username, password);
 

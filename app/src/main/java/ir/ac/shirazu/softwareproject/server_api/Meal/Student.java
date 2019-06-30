@@ -1,6 +1,8 @@
 package ir.ac.shirazu.softwareproject.server_api.Meal;
 
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -14,8 +16,14 @@ public class Student {
     private int credit;
     private int id;
     private String studentType;
+    private Context context;
+    private Self self;
 
     public ArrayList<MealInfo> allStudentFoodInfo = new ArrayList<>();
+
+    public Student(Context context){
+        this.context = context;
+    }
 
     public void fillMealInfo(HashMap<String, JSONObject> foodData) {
         try {
@@ -49,8 +57,9 @@ public class Student {
                 }
                 else newMeal.setReservedFoodId(2);
                 //newMeal.setReservedFoodId(foodInfoObject.getString("food_id"));
-                newMeal.setSelfData(foodInfoObject.getString("self_name"), 0);
-
+                int id = Integer.valueOf(foodInfoObject.getString("self_name"));
+                self = Utility.getInstance(context).getSelf(id);
+                newMeal.setSelfData(self.getSelfName(), self.getSelfId());
                 this.allStudentFoodInfo.add(newMeal);
 
             }

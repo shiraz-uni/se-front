@@ -5,15 +5,13 @@ public class FoodInfo {
     private int foodPrice;
 
 
-    public FoodInfo(String foodName, int foodPrice, String foodId) {
+    public FoodInfo(String foodName, int foodPrice) {
         this.foodName = foodName;
         this.foodPrice = foodPrice;
 
     }
 
-    public FoodInfo(String foodName, int foodPrice) {
-        this(foodName, foodPrice, null);
-    }
+
 
     public String getFoodName() {
         return foodName;

@@ -29,15 +29,18 @@ public class MyKit {
     public static Student student ;
     private static String loginURL = "http://nowaw.pythonanywhere.com/login/login";
     private static String studentInfoURL = "http://nowaw.pythonanywhere.com/login/self_data";
-    private static String logoutURL = "http://nowaw.pythonanywhere.com/login/logout";
+    public static  final String logoutURL = "http://nowaw.pythonanywhere.com/login/logout";
     private static String deleteURL = "http://nowaw.pythonanywhere.com/login/delete";
     private static HttpURLConnection connection;
     private static String USER_AGENT = "Mozilla/5.0";
     private static String token;
     private static String requestResult ;
     private LoginCallBack loginCallBack ;
+    private Context context;
 
-
+    public MyKit(Context context){
+        this.context = context;
+    }
 
     public void setLoginCallBack(LoginActivity loginCallBack) {
         this.loginCallBack = loginCallBack;
@@ -92,13 +95,13 @@ public class MyKit {
         return "{\"token\" : \"" + token + " \"}";
     }
 
-    private static String tokenToJson(String token) {
+    public static String tokenToJson(String token) {
         return "{\"token\" : \"" + token + " \"}";
     }
 
 
 
-    private static String sendPostRequest(String jsonInformation, String serverURL) throws Exception {
+    public static String sendPostRequest(String jsonInformation, String serverURL) throws Exception {
 
         String url = serverURL;
         URL obj = new URL(url);
@@ -224,7 +227,7 @@ public class MyKit {
 
     //PUBLIC
     public Student studentLogin(String userName, String password) {
-        Student newStudent = new Student();
+        Student newStudent = new Student(context);
 
 
         try {
@@ -261,7 +264,7 @@ public class MyKit {
 
 
             //Logging out
-            sendPostRequest(tokenToJson(userToken),logoutURL);
+           // sendPostRequest(tokenToJson(userToken),logoutURL);
 
 
 
@@ -327,22 +330,22 @@ public class MyKit {
 
     //Newly Added Functions :
 
-    private static String deleteInfoToJson (String couponId , String studentToken){
+//        private static String deleteInfoToJson (String couponId , String studentToken){
+//
+//            return "{\"coupon_id\" : " + couponId + ", \"token\" : \"" + studentToken + "\" } " ;
+//        }
 
-        return "{\"coupon_id\" : " + couponId + ", \"token\" : \"" + studentToken + "\" } " ;
-    }
-
-    private void sendIONICPostRequest (JsonObject json , String serverUrl , Context context) {
-        Ion.with(context)
-                .load(serverUrl)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                       requestResult =  result.toString();
-                    }
-                });
+        private void sendIONICPostRequest (JsonObject json , String serverUrl , Context context) {
+            Ion.with(context)
+                    .load(serverUrl)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            // do stuff with the result or error
+                            requestResult =  result.toString();
+                        }
+                    });
 
     }
 
@@ -381,6 +384,103 @@ public class MyKit {
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private static String deleteInfoToJson (String couponId , String studentToken){
+
+        return "{\"coupon_id\" :\"" + couponId + "\", \"token\" : \"" + studentToken + "\" } " ;
+    }
+
+    public static void deleteCoupon (Student student ,  String couponId , String studentToken )throws Exception{
+
+        String foodDeleteJson = deleteInfoToJson(couponId,studentToken);
+        sendPostRequest(foodDeleteJson ,deleteURL );
+        /*
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("coupon_id" , Integer.toString(couponId));
+        jsonObject.addProperty("token" , studentToken);
+        sendIONICPostRequest(jsonObject , deleteURL , context);
+        */
+        MealInfo mealInfo = null;
+        for ( MealInfo meal : student.allStudentFoodInfo){
+            if ( meal.getCouponId().equals(couponId)){
+                System.out.println("+++ Found The Meal +++\n");
+                mealInfo = meal ;
+                break ;
+            }
+        }
+
+        if ( mealInfo != null){
+            student.allStudentFoodInfo.remove(mealInfo);
+            System.out.println("+++ Found The Meal { Removed } +++\n");
+
+            int foodPrice = 0 ;
+
+            if ( mealInfo.state == true){
+                foodPrice = mealInfo.getFirstFood().getFoodPrice();
+            }
+            else{
+                foodPrice = mealInfo.getSecondFood().getFoodPrice();
+            }
+
+            student.setCredit(student.getCredit() + foodPrice);
+        }
+
+    }
+    public static String addCouponInfoToJSON(String self , String food_id , String token , String state){
+        return "{\"token\":\"" + token + "\", \"food_id\" : \"" + food_id + "\",\"state\":\"" + state + "\", \"self\" :\"" + self + "\"}" ;
+
+    }
+    public static String addCouponURL = "http://nowaw.pythonanywhere.com/login/purchase";
+    public static void addCoupon ( Student student , String self , String food_id , String token , Boolean state )throws Exception{
+        System.out.println("Adding Coupon \n");
+        String booleanState = (state == true) ? "1" : "0" ;
+        String jsonInformation = addCouponInfoToJSON(self , food_id , token ,booleanState ) ;
+        sendPostRequest(jsonInformation , addCouponURL);
+
+
+        String userInformation = sendPostRequest(tokenToJson(token), studentInfoURL);
+        HashMap<String, JSONObject> list = new HashMap<>();
+        totalInfoToJSONs(userInformation, list);
+        fillStudentMealInfo(student, list.get("coupons"));
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
