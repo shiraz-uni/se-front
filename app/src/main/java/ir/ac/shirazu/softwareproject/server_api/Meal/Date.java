@@ -128,6 +128,16 @@ public class Date {
         this.day = date.getShDay();
     }
 
+    public Date increaseDayBy(int i) {
+        PersianDate date = new PersianDate();
+        date.setShDay(this.day);
+        date.setShMonth(this.month);
+        date.setShYear(this.year);
+        date.addDate(0, 0, i);
+
+        return new Date(date.getShDay(), date.getShMonth(), date.getShYear());
+    }
+
     public static Date getFirstDayOfThisWeek() {
         Date firstDayOfWeek = getToday();
         PersianDate date = new PersianDate();
@@ -135,7 +145,7 @@ public class Date {
         date.setShDay(firstDayOfWeek.getDay());
         date.setShMonth(firstDayOfWeek.getMonth());
         date.setShYear(firstDayOfWeek.getYear());
-        date.addDate(0, 0, -date.dayOfWeek());
+        date.addDate(0, 0, -date.dayOfWeek() + 1);
         firstDayOfWeek.setDay(date.getShDay());
         return firstDayOfWeek;
     }
@@ -144,6 +154,14 @@ public class Date {
     public String toString() {
 
         return this.getDateInString() + " " + this.getDayOfWeek();
+    }
+
+    public boolean equals(Object obj) {
+        Date date = (Date) obj;
+        if (date.day == this.day && date.month == this.month
+                && date.year == this.year)
+            return true;
+        return false;
     }
 
     public List<String> sortByDayOfWeek(List<String> a) {

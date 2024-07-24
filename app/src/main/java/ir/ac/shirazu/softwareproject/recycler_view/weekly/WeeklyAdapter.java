@@ -38,7 +38,7 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyViewHolder> {
     public WeeklyAdapter(List<WeeklyItem> weeklyItems, Context context, FragmentManager fragmentManager) {
         itemsInfo = (ArrayList<WeeklyItem>) weeklyItems;
         this.mContext = context;
-        this.date = Date.getToday();
+        this.date = Date.getToday().increaseDayBy(1);
         mFragmentManager = fragmentManager;
     }
 
